@@ -111,12 +111,12 @@
 <h3>On this page</h3><a class="" href="#overview">Overview</a><a class="" href="#enabling-3d-mode">Enabling 3D Mode</a><a class="" href="#the-four-phases">The Four Phases</a><a class="sub" href="#phase-1-session-discovery-and-calibration">Phase 1 — Session discovery and calibration</a><a class="sub" href="#phase-2-per-camera-adaptation-and-tracking">Phase 2 — Per-camera adaptation and tracking</a><a class="sub" href="#phase-3-triangulation-and-videos">Phase 3 — Triangulation and videos</a><a class="sub" href="#phase-4-passing-results-on-to-steps-2-to-5">Phase 4 — Passing results on to Steps 2 to 5</a><a class="" href="#3d-settings-reference">3D Settings Reference</a><a class="sub" href="#3d-mode">3D Mode</a><a class="sub" href="#calibration-auto-detected-recommended">Calibration (auto-detected, recommended)</a><a class="sub" href="#folders-and-homography-fallback">Folders and homography fallback</a><a class="sub" href="#camera-configuration">Camera Configuration</a><a class="sub" href="#triangulation-options">Triangulation Options</a><a class="sub" href="#calibration-refinement">Calibration Refinement</a><a class="sub" href="#post-processing-and-visualization">Post-processing and Visualization</a><a class="sub" href="#other-sections-collapsed-by-default">Other sections (collapsed by default)</a><a class="" href="#output-files">Output Files</a><a class="" href="#how-downstream-steps-differ-in-3d-mode">How Downstream Steps Differ in 3D Mode</a><a class="" href="#camera-calibration">Camera Calibration</a><a class="" href="#troubleshooting-3d">Troubleshooting (3D)</a>
     </aside>
     <article class="prose">
-<aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Track the animal with several cameras and triangulate one 3D skeleton per session.</span></div><div><b>You need</b><span>Step 0 videos, a calibration recording, aniposelib and a GPU.</span></div><div><b>You get</b><span>A 3D keypoint file and a quad video per session.</span></div><div><b>Time</b><span>Setup takes care; the run is unattended</span></div></aside><h2 id="overview">Overview<a class="anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Track the animal with several cameras and triangulate one 3D skeleton per session.</span></div><div><b>You need</b><span>Step 0 videos, a calibration recording and a GPU (Anipose is installed by the installer).</span></div><div><b>You get</b><span>A 3D keypoint file and a quad video per session.</span></div><div><b>Time</b><span>Setup takes care; the run is unattended</span></div></aside><h2 id="overview">Overview<a class="anchor" href="#overview" aria-label="Link to this section">#</a></h2>
 <p><strong>You need</strong></p>
 <ul>
 <li><strong>Step 0 output:</strong> corrected, synchronised videos from <code>bonsai_video_corrector.py</code>.</li>
 <li><strong>A calibration recording:</strong> a Charuco board recorded by all cameras, run through the same Step 0 and with &quot;calibration&quot; in its session name. CUBE finds it and creates <code>calibration.toml</code> automatically. A <code>calibration.toml</code> made by hand still works as a backup (see <a href="#camera-calibration">Camera Calibration</a>).</li>
-<li><strong>Software:</strong> <code>aniposelib</code> and <code>imageio-ffmpeg</code> installed in the <code>CUBE</code> environment, plus DeepLabCut as for 2D.</li>
+<li><strong>Software:</strong> <code>aniposelib</code>, <code>imageio-ffmpeg</code> and DeepLabCut, all installed by <code>install_cube.bat</code> (check with <strong>Help → System check</strong>).</li>
 <li><strong>A CUDA GPU:</strong> strongly recommended; CPU inference works but is very slow.</li>
 </ul>
 <table>
@@ -137,11 +137,11 @@
 </tr>
 <tr>
 <td><code>aniposelib</code></td>
-<td><code>pip install aniposelib</code> inside the <code>CUBE</code> environment</td>
+<td>Installed by <code>install_cube.bat</code>; <strong>Help → System check</strong> confirms it</td>
 </tr>
 <tr>
 <td>DeepLabCut</td>
-<td>In the same environment, as for 2D Step 1</td>
+<td>Installed by <code>install_cube.bat</code>, as for 2D Step 1</td>
 </tr>
 </tbody>
 </table>

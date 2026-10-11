@@ -124,7 +124,7 @@
 
 <h2 id="steps">The ten steps</h2>
 <ol class="steps">
-<li><h3>Launch CUBE</h3><p>Start the app with the CUBE environment's Python: <code>python cube.py</code>. The five step cards run left to right: DLC, pre-processing, clustering, annotation and analysis.</p></li>
+<li><h3>Launch CUBE</h3><p>Double-click the <strong>CUBE</strong> icon on your Desktop (or <code>Launch CUBE.bat</code>). The five step cards run left to right: DLC, pre-processing, clustering, annotation and analysis.</p></li>
 <li><h3>Add your video folders</h3><p>Click <strong>Add</strong> under <em>Video source folders</em> and choose the folder with your videos. CUBE chooses an output folder for you automatically; use <strong>Change</strong> only if you want it somewhere else.</p></li>
 <li><h3>Optional: group your animals</h3><p>If you will compare groups in Step 5, select a folder, type a group name and click <strong>Apply</strong>. You can also do this later in the analyser.</p></li>
 <li><h3>Check the settings</h3><p>The defaults suit most datasets. Open <strong>DLC &amp; Prep Settings</strong> only to set the recording frame rate or the minimum confidence for body points. The <strong>Bout Duration Filter</strong> (default 0.30 to 10 s) removes very brief or very long bouts before clustering.</p></li>
@@ -140,7 +140,7 @@
 <h2 id="stuck">If something goes wrong</h2>
 <ul>
 <li><strong>No clusters found, or odd results:</strong> see <a href="../../guide/troubleshooting/">Troubleshooting</a>.</li>
-<li><strong>Step 1 fails:</strong> check that DeepLabCut is installed in the same environment as CUBE.</li>
+<li><strong>Step 1 fails or says pose tracking is not set up:</strong> choose <strong>Help &rarr; System check</strong>. If DeepLabCut or PyTorch is missing, double-click <code>install_cube.bat</code> again; it repairs the installation.</li>
 <li><strong>The analyser shows no animals:</strong> choose the output folder that contains <code>bout_lengths/</code>.</li>
 <li>Still stuck? <a href="https://github.com/param-valiathan/CUBE/issues" rel="noopener">Open an issue on GitHub</a> with the log from the <em>Pipeline Log</em> panel.</li>
 </ul>

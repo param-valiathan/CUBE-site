@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Installation and launching | CUBE user guide</title>
-<meta name="description" content="Requirements, creating the CUBE conda environment, verifying it and launching the app or the standalone tools.">
+<meta name="description" content="Install CUBE with one double-click on Windows, check the installation, launch the app and the standalone tools, and fix common problems.">
 <link rel="canonical" href="https://param-valiathan.github.io/CUBE-site/guide/installation/">
 <meta name="theme-color" content="#0B2A4A">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CUBE">
 <meta property="og:title" content="Installation and launching | CUBE user guide">
-<meta property="og:description" content="Requirements, creating the CUBE conda environment, verifying it and launching the app or the standalone tools.">
+<meta property="og:description" content="Install CUBE with one double-click on Windows, check the installation, launch the app and the standalone tools, and fix common problems.">
 <meta property="og:url" content="https://param-valiathan.github.io/CUBE-site/guide/installation/">
 <meta property="og:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Installation and launching | CUBE user guide">
-<meta name="twitter:description" content="Requirements, creating the CUBE conda environment, verifying it and launching the app or the standalone tools.">
+<meta name="twitter:description" content="Install CUBE with one double-click on Windows, check the installation, launch the app and the standalone tools, and fix common problems.">
 <meta name="twitter:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
 <link rel="icon" href="../../favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon-32.png">
@@ -77,7 +77,7 @@
   <div class="container">
     <p class="crumbs"><a href="../../">Home</a> / <a href="../../guide/">User guide</a> / Installation and launching</p>
     <h1>Installation and launching</h1>
-    <p class="lead">Requirements, creating the CUBE conda environment, verifying it and launching the app or the standalone tools.</p>
+    <p class="lead">Install CUBE with one double-click on Windows, check the installation, launch the app and the standalone tools, and fix common problems.</p>
   </div>
 </section>
 <section class="section">
@@ -108,45 +108,72 @@
 <a href="../../guide/troubleshooting/">Troubleshooting</a>
 <a href="../../3d/">3D multi-camera mode</a>
 </div>
-<h3>On this page</h3><a class="" href="#requirements">Requirements</a><a class="" href="#create-the-environment">Create the environment</a><a class="" href="#verify-the-environment">Verify the environment</a><a class="" href="#launching-cube">Launching CUBE</a>
+<h3>On this page</h3><a class="" href="#requirements">Requirements</a><a class="" href="#install-three-steps">Install (three steps)</a><a class="" href="#check-the-installation">Check the installation</a><a class="" href="#installing-by-hand-advanced">Installing by hand (advanced)</a><a class="" href="#which-step-do-i-need">Which step do I need?</a><a class="" href="#launching-cube">Launching CUBE</a>
     </aside>
     <article class="prose">
-<aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Set up the CUBE environment and launch the app.</span></div><div><b>You need</b><span>Windows 10 or 11, Anaconda or Miniconda.</span></div><div><b>You get</b><span>A working CUBE window.</span></div><div><b>Time</b><span>About 15 minutes</span></div></aside><h2 id="requirements">Requirements<a class="anchor" href="#requirements" aria-label="Link to this section">#</a></h2>
+<aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Install CUBE with one double-click and launch the app.</span></div><div><b>You need</b><span>Windows 10 or 11 and an internet connection. Nothing else needs installing first.</span></div><div><b>You get</b><span>A working CUBE window and a Desktop icon.</span></div><div><b>Time</b><span>10 to 30 minutes, mostly downloading</span></div></aside><h2 id="requirements">Requirements<a class="anchor" href="#requirements" aria-label="Link to this section">#</a></h2>
 <ul>
-<li>Windows 10 or 11</li>
-<li>Anaconda or Miniconda</li>
-<li>A CUDA-capable GPU is recommended for DLC pose tracking (Step 1). It is not needed for Steps 2 to 5.</li>
+<li>Windows 10 or 11 (64-bit), an internet connection for the installation, and about 15 GB of free disk space.</li>
+<li>Nothing else. You do not need to install Python or Anaconda; the installer sets up its own.</li>
+<li>An NVIDIA graphics card is strongly recommended for DLC pose tracking (Step 1). It is not needed for Steps 2 to 5.</li>
 </ul>
-<h2 id="create-the-environment">Create the environment<a class="anchor" href="#create-the-environment" aria-label="Link to this section">#</a></h2>
-<p>Create the <code>CUBE</code> environment once, from the <code>environment.yml</code> file in the repository:</p>
+<h2 id="install-three-steps">Install (three steps)<a class="anchor" href="#install-three-steps" aria-label="Link to this section">#</a></h2>
+<ol>
+<li><strong>Get CUBE.</strong> Download the ZIP from GitHub, right-click it and choose <strong>Extract All…</strong>, and put the folder somewhere simple, for example a folder called CUBE directly on your C: drive.</li>
+<li><strong>Double-click <code>install_cube.bat</code>.</strong> It installs Python 3.12 in its own <code>CUBE</code> environment and every package CUBE needs: the analysis tools (Steps 2 to 5), DeepLabCut with PyTorch (Step 1) and Anipose (Step 1b). It picks the GPU or the CPU version of PyTorch automatically. The first run downloads several GB and takes 10 to 30 minutes. Wait for <em>CUBE is installed</em>. Running it again repairs a damaged installation.</li>
+<li><strong>Start CUBE</strong> with the Desktop icon, or <code>Launch CUBE.bat</code>.</li>
+</ol>
+<p>The installer needs no administrator rights and changes nothing outside your Windows user profile and the CUBE folder. It writes <code>install_log.txt</code>; send that file if you need help.</p>
+<h2 id="check-the-installation">Check the installation<a class="anchor" href="#check-the-installation" aria-label="Link to this section">#</a></h2>
+<p>In CUBE, choose <strong>Help → System check</strong> (or press the <strong>System check</strong> button). The report shows, for each step, what is installed and what is missing, whether your GPU was found, and how to fix problems. <strong>Copy report</strong> puts the text on the clipboard so you can paste it into an email. Without opening CUBE: <code>python cube.py --check</code>.</p>
+<h2 id="installing-by-hand-advanced">Installing by hand (advanced)<a class="anchor" href="#installing-by-hand-advanced" aria-label="Link to this section">#</a></h2>
+<p>CUBE is developed with <strong>Python 3.12.13</strong>. From the CUBE folder, with any conda:</p>
 <pre><code class="language-bat">conda env create -f environment.yml
 conda activate CUBE
+python -m pip install --no-deps -r requirements-lock.txt
 </code></pre>
-<p>DeepLabCut is <strong>not</strong> part of that file. Install it into the <strong>same</strong> environment if you want CUBE to run pose tracking:</p>
-<pre><code class="language-bat">pip install deeplabcut
-</code></pre>
-<p>For 3D mode (Step 1b) also install <code>aniposelib</code> and <code>imageio-ffmpeg</code>.</p>
+<p><code>--no-deps</code> is needed because DeepLabCut's metadata asks for <code>numpy&lt;2</code> while CUBE runs numpy 2.4; the lock file lists every package at its tested version. Use <code>environment-cpu.yml</code> and <code>requirements-lock-cpu.txt</code> on a computer without an NVIDIA GPU. Installer options (run from a terminal): <code>install_cube.bat -Cpu</code>, <code>-Gpu</code>, <code>-Recreate</code>.</p>
 <blockquote>
-<p><strong>Important:</strong> DeepLabCut must be installed inside the <code>CUBE</code> environment, not in a separate one. Step 1 fails if DeepLabCut is missing or installed elsewhere. Steps 2 to 5 do not need it.</p>
+<p><strong>Important:</strong> DeepLabCut must be in the <code>CUBE</code> environment, not a separate one. Step 1 explains this and stops with a clear message if DeepLabCut or PyTorch is missing. Steps 2 to 5 do not need them.</p>
 </blockquote>
-<h2 id="verify-the-environment">Verify the environment<a class="anchor" href="#verify-the-environment" aria-label="Link to this section">#</a></h2>
-<p>Check that the environment imports correctly, using the full path to its Python:</p>
-<pre><code class="language-bat">&quot;C:\Users\&lt;yourname&gt;\anaconda3\envs\CUBE\python.exe&quot; -c &quot;import umap; print('OK')&quot;
-</code></pre>
+<h2 id="which-step-do-i-need">Which step do I need?<a class="anchor" href="#which-step-do-i-need" aria-label="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Your data</th>
+<th>Start at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-camera videos, no pose files yet</td>
+<td>Step 1a</td>
+</tr>
+<tr>
+<td>Several synchronised cameras with a calibration recording</td>
+<td>Step 0 (if recorded with Bonsai or Doric), then Step 1b</td>
+</tr>
+<tr>
+<td>You already have DeepLabCut H5 or CSV files</td>
+<td>Step 2</td>
+</tr>
+<tr>
+<td>You already ran Step 3 and want to name clusters</td>
+<td>Step 4</td>
+</tr>
+<tr>
+<td>You already have named clusters and want statistics</td>
+<td>Step 5</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="launching-cube">Launching CUBE<a class="anchor" href="#launching-cube" aria-label="Link to this section">#</a></h2>
-<p>Start CUBE with the Python of the <code>CUBE</code> environment:</p>
+<p>Double-click the <strong>CUBE</strong> icon on the Desktop, or <code>Launch CUBE.bat</code> in the CUBE folder. The launcher finds the <code>CUBE</code> environment by itself; if it cannot, it tells you to run <code>install_cube.bat</code>. If CUBE closes with an error, a message box names the file <code>CUBE_logs\last_launch_errors.txt</code>; <code>Launch CUBE (console).bat</code> keeps a window open so the error can be read.</p>
 <figure class="doc-fig "><img src="../../assets/img/gui-main-light.webp" width="1800" height="621" loading="lazy" alt="The CUBE main window with step cards for DLC, pre-processing, clustering, annotation and analysis" class="theme-img theme-img--light"><img src="../../assets/img/gui-main-dark.webp" width="1800" height="621" loading="lazy" alt="The CUBE main window with step cards for DLC, pre-processing, clustering, annotation and analysis" class="theme-img theme-img--dark"><figcaption>The CUBE main window. The five steps run left to right across the cards; progress and messages appear in the pipeline log.</figcaption></figure>
 
-<pre><code class="language-bat">&quot;C:\Users\&lt;yourname&gt;\anaconda3\envs\CUBE\python.exe&quot; cube.py
-</code></pre>
-<p>Two steps also run as standalone tools:</p>
-<pre><code class="language-bat">rem Behaviour Analyser (Step 5 only)
-&quot;C:\Users\&lt;yourname&gt;\anaconda3\envs\CUBE\python.exe&quot; cube_analyser.py
-
-rem Video Explorer / Cluster Annotator (Step 4 only)
-&quot;C:\Users\&lt;yourname&gt;\anaconda3\envs\CUBE\python.exe&quot; cube_video_explorer.py
-</code></pre>
+<p>Two steps also run as standalone tools: <code>Launch Analyser.bat</code> (Behaviour Analyser, Step 5 only) and <code>Launch Video Explorer.bat</code> (Cluster Annotator, Step 4 only).</p>
+<p>From a terminal, with the <code>CUBE</code> environment active: <code>python cube.py</code>, <code>python cube_analyser.py</code>, <code>python cube_video_explorer.py</code>.</p>
 <p>The <strong>Theme</strong> button in the main window switches between the light and dark theme.</p>
 <hr />
 

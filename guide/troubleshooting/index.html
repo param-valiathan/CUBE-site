@@ -108,9 +108,61 @@
 <a class="is-on" href="../../guide/troubleshooting/">Troubleshooting</a>
 <a href="../../3d/">3D multi-camera mode</a>
 </div>
-<h3>On this page</h3><a class="" href="#no-clusters-found-after-step-3">&quot;No clusters found&quot; after Step 3</a><a class="" href="#low-classifier-cross-validation-accuracy">Low classifier cross-validation accuracy</a><a class="" href="#hmm-smoothing-gives-implausibly-long-bouts">HMM smoothing gives implausibly long bouts</a><a class="" href="#the-number-of-clusters-looks-wrong">The number of clusters looks wrong</a><a class="" href="#the-partition-changes-a-lot-between-runs">The partition changes a lot between runs</a><a class="" href="#dlc-inference-fails-in-step-1">DLC inference fails in Step 1</a><a class="" href="#the-analyser-shows-no-animals-or-empty-tables">The Analyser shows no animals or empty tables</a><a class="" href="#group-predictor-shows-near-chance-accuracy-for-every-model">Group Predictor shows near-chance accuracy for every model</a><a class="" href="#invalid-command-name-messages-when-closing">&quot;invalid command name&quot; messages when closing</a>
+<h3>On this page</h3><a class="" href="#installation-and-start-up-problems">Installation and start-up problems</a><a class="" href="#no-clusters-found-after-step-3">&quot;No clusters found&quot; after Step 3</a><a class="" href="#low-classifier-cross-validation-accuracy">Low classifier cross-validation accuracy</a><a class="" href="#hmm-smoothing-gives-implausibly-long-bouts">HMM smoothing gives implausibly long bouts</a><a class="" href="#the-number-of-clusters-looks-wrong">The number of clusters looks wrong</a><a class="" href="#the-partition-changes-a-lot-between-runs">The partition changes a lot between runs</a><a class="" href="#dlc-inference-fails-in-step-1">DLC inference fails in Step 1</a><a class="" href="#the-analyser-shows-no-animals-or-empty-tables">The Analyser shows no animals or empty tables</a><a class="" href="#group-predictor-shows-near-chance-accuracy-for-every-model">Group Predictor shows near-chance accuracy for every model</a><a class="" href="#invalid-command-name-messages-when-closing">&quot;invalid command name&quot; messages when closing</a>
     </aside>
     <article class="prose">
+<h2 id="installation-and-start-up-problems">Installation and start-up problems<a class="anchor" href="#installation-and-start-up-problems" aria-label="Link to this section">#</a></h2>
+<p>Always begin with <strong>Help → System check</strong> (or <code>python cube.py --check</code>). It names what is missing and the fix.</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause and fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Launching says <em>CUBE has not been installed</em></td>
+<td>The <code>CUBE</code> environment is missing. Run <code>install_cube.bat</code> (it can be run any number of times).</td>
+</tr>
+<tr>
+<td><code>install_cube.bat</code> stops with a network message</td>
+<td>A download was interrupted or blocked. Run it again; finished packages are not downloaded again. On a company network, ask IT to allow <code>pypi.org</code>, <code>conda.anaconda.org</code>, <code>github.com</code> and <code>download.pytorch.org</code>.</td>
+</tr>
+<tr>
+<td>The installer says <code>requirements-lock.txt</code> was not found</td>
+<td>CUBE was started from inside the ZIP. Right-click the ZIP, choose <strong>Extract All…</strong>, and run the installer from the extracted folder.</td>
+</tr>
+<tr>
+<td>Windows SmartScreen blocks the <code>.bat</code> file</td>
+<td>Choose <em>More info → Run anyway</em>. The scripts are plain text and can be read in Notepad.</td>
+</tr>
+<tr>
+<td><em>Pose tracking is not set up</em> when starting Step 1</td>
+<td>DeepLabCut or PyTorch is missing from the environment. Run <code>install_cube.bat</code>. If you already have DeepLabCut output, start at Step 2.</td>
+</tr>
+<tr>
+<td>System check: <em>no GPU available</em></td>
+<td>Without an NVIDIA GPU this is expected: everything works and only Step 1 is slow. With a GPU, install the current driver from nvidia.com/drivers (version 580 or newer is required by the GPU build), restart, then run <code>install_cube.bat -Gpu</code>.</td>
+</tr>
+<tr>
+<td>System check: <em>several OpenCV packages installed</em></td>
+<td>Run <code>install_cube.bat</code> to restore a single OpenCV.</td>
+</tr>
+<tr>
+<td>CUBE closes immediately or shows an error box</td>
+<td>Open <code>CUBE_logs\last_launch_errors.txt</code>, or double-click <code>Launch CUBE (console).bat</code> to read the message in a window. Send it together with the <em>Copy report</em> text from System check.</td>
+</tr>
+<tr>
+<td><em>Path too long</em> errors</td>
+<td>Keep video folders short and close to the top of a drive, for example a folder called Mouse1 inside a folder called Videos.</td>
+</tr>
+<tr>
+<td>Disk fills up during a run</td>
+<td>Results and corrected videos are large. System check reports free space; choose an output drive with 50 GB or more.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="no-clusters-found-after-step-3">&quot;No clusters found&quot; after Step 3<a class="anchor" href="#no-clusters-found-after-step-3" aria-label="Link to this section">#</a></h2>
 <ol>
 <li>Read the log: HDBSCAN may have labelled every point as noise. Try a larger <code>n_neighbors</code> or a smaller minimum cluster size.</li>
