@@ -108,7 +108,7 @@
 <a href="../guide/troubleshooting/">Troubleshooting</a>
 <a href="../3d/">3D multi-camera mode</a>
 </div>
-<h3>On this page</h3><a class="" href="#combined-analysis-tab">Combined Analysis tab</a><a class="" href="#unbiased-analytics-tab">Unbiased Analytics tab</a><a class="" href="#behavioral-explorer-tab">Behavioral Explorer tab</a><a class="" href="#group-predictor-tab">Group Predictor Tab</a><a class="sub" href="#detecting-one-group-among-several-target-group-contrasts-and-group-statistics">Detecting one group among several (target group, contrasts and group statistics)</a>
+<h3>On this page</h3><a class="" href="#combined-analysis-tab">Combined Analysis tab</a><a class="" href="#unbiased-analytics-tab">Unbiased Analytics tab</a><a class="sub" href="#statistics-for-small-cohorts-options-tiers-and-effect-sizes">Statistics for small cohorts: options, tiers and effect sizes</a><a class="" href="#behavioral-explorer-tab">Behavioral Explorer tab</a><a class="" href="#group-predictor-tab">Group Predictor Tab</a><a class="sub" href="#detecting-one-group-among-several-target-group-contrasts-and-group-statistics">Detecting one group among several (target group, contrasts and group statistics)</a>
     </aside>
     <article class="prose">
 <aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Open the analyser and work through its tabs.</span></div><div><b>You need</b><span>A CUBE output folder.</span></div><div><b>You get</b><span>Tables, figures and group statistics.</span></div><div><b>Time</b><span>Reference</span></div></aside><p>Open it with the <strong>Step 5</strong> card (<em>Behaviour Analysis</em>), or run <code>cube_analyser.py</code>.</p>
@@ -168,8 +168,8 @@
 <h2 id="unbiased-analytics-tab">Unbiased Analytics tab<a class="anchor" href="#unbiased-analytics-tab" aria-label="Link to this section">#</a></h2>
 <p><strong>Experimental design</strong> (under <em>Statistical Settings</em>, above <em>Group by</em>):</p>
 <ul>
-<li><strong>Independent groups</strong> (default): different animals in each group, for example Control, Treatment A and Treatment B. The overall test is Kruskal-Wallis and the pairwise follow-up is Dunn's test (Mann-Whitney U if <code>scikit-posthocs</code> is not installed). P-values are corrected for the false discovery rate across every cluster and panel shown together, so a star means the same thing on every panel.</li>
-<li><strong>Repeated measures</strong>: the same animals measured at several levels of <em>Group by</em> (for example Baseline, Day 3, Day 7). Give matching animals the same <em>Label 3 / Animal ID</em> at every level. Only animals present at every level are used, and at least 3 matched animals are required. The overall test is a Wilcoxon signed-rank test (2 levels) or Friedman's test (3 or more levels), with pairwise Wilcoxon follow-ups and the same false discovery rate correction. The status bar reports how many animals were matched and how many were excluded.</li>
+<li><strong>Independent groups</strong> (default): different animals in each group, for example Control, Treatment A and Treatment B. The overall test is Kruskal-Wallis and the pairwise follow-up is Dunn's test (built in). Pairwise tests are corrected only among clusters whose overall test has p &lt; 0.05 (option below). P-values are corrected for the false discovery rate across every cluster and panel shown together, so a star means the same thing on every panel.</li>
+<li><strong>Repeated measures</strong>: the same animals measured at several levels of <em>Group by</em> (for example Baseline, Day 3, Day 7). Give matching animals the same <em>Label 3 / Animal ID</em> at every level. By default every animal with data at two or more levels is used (a mixed model); with that option off only animals present at every level are used. At least 3 animals are required. With fewer than 10 matched animals the overall test is a paired t-test on log usage (2 levels) or a repeated-measures ANOVA on log usage (3 or more levels); with 10 or more it is a Wilcoxon signed-rank test or Friedman's test. Pairwise follow-ups use the same rule and the same false discovery rate correction. The status bar reports how many animals were used.</li>
 <li>A mixed design (independent groups, each followed over time) is not available.</li>
 </ul>
 <p><strong>What the statistics report for each cluster</strong> (independent groups): whether the cluster is present in each group at all (a prevalence test, because a cluster that is absent in one group is a different kind of effect from a difference in amount), then, among animals that show it, whether its frequency or duration differs between groups. The result table is exported with the figures.</p>
@@ -220,7 +220,15 @@
 </tr>
 <tr>
 <td>Grp Transitions</td>
-<td>Group comparison of transitions, pair by pair (Welch's t-test, volcano plot)</td>
+<td>Group comparison of transitions, pair by pair (Mann-Whitney U, volcano plot with q = 0.05 and 0.10 lines)</td>
+</tr>
+<tr>
+<td>Effect Sizes</td>
+<td>Effect size (Hedges' g or paired dz) per cluster and group pair, marked <code>*</code>, <code>**</code> or <code>+</code>; a forest plot with 95 % confidence intervals is saved with it</td>
+</tr>
+<tr>
+<td>Group Omnibus</td>
+<td>Jensen-Shannon and PERMANOVA tests on overall cluster usage, with a PCA of animals (independent groups)</td>
 </tr>
 <tr>
 <td>Cluster Stats</td>
@@ -233,6 +241,98 @@
 </tbody>
 </table>
 <p>The <em>Metric</em> selector in the bar, volcano and heatmap views also offers each cluster's movement signature from <code>cluster_kinematics.csv</code>.</p>
+<h3 id="statistics-for-small-cohorts-options-tiers-and-effect-sizes">Statistics for small cohorts: options, tiers and effect sizes<a class="anchor" href="#statistics-for-small-cohorts-options-tiers-and-effect-sizes" aria-label="Link to this section">#</a></h3>
+<p>Most neuroscience cohorts have 5 to 12 animals per group. At that size a rank test followed by a strict correction across 20 to 30 clusters can miss large, real effects. A simulation of CUBE's own pipeline (25 clusters, 3 truly different, 6 animals per group, a 2.5 SD effect) found 41 % of true clusters at omnibus q &lt; 0.05, 9 % for the pooled post-hoc pairs, and none at 4 animals per group. The options below keep false-discovery control (Benjamini-Hochberg is still applied) but stop the correction from being stricter than it needs to be. They are shared by <strong>Unbiased Analytics</strong>, <strong>Combined Analysis</strong> and <strong>Paradigm Results</strong>: the checkboxes sit in <em>Statistical Settings</em> (Unbiased, Paradigm) or behind the <strong>Stats options</strong> button (Combined). Change a setting, then <strong>re-run</strong> the analysis. Every export includes <code>stats_policy.json</code> recording the options in force.</p>
+<table>
+<thead>
+<tr>
+<th>Option (default on)</th>
+<th>What it does</th>
+<th>Implication / when to switch it off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Show suggestive tier (+, q&lt;0.10) and effect sizes</strong></td>
+<td>Adds a second, clearly labelled tier. <code>*</code>, <code>**</code>, <code>***</code> still mean q &lt; 0.05, 0.01, 0.001. <code>+</code> means 0.05 ≤ q &lt; 0.10: a lead to follow up, not a confirmed result. The <code>tier</code> column in every CSV says <code>confirmed</code>, <code>suggestive</code> or <code>ns</code></td>
+<td>Report only <code>confirmed</code> results as findings. Switch off if you want the classic single threshold</td>
+</tr>
+<tr>
+<td><strong>Post-hoc only where omnibus p&lt;0.05</strong></td>
+<td>Pairwise comparisons (Dunn's test, or paired tests) are corrected only among clusters whose omnibus test p &lt; 0.05 (Fisher-protected testing). Other clusters report q = 1 and <code>gated_out_by_omnibus = True</code> in <code>*_posthoc.csv</code></td>
+<td>Large gain in power with several groups (6 animals per group: 9 % to 89 % detection in simulation, about 2 % false positives per null cluster). Switch off to correct over every pair of every cluster</td>
+</tr>
+<tr>
+<td><strong>Paired t-test on log usage when n&lt;10</strong></td>
+<td>In repeated designs with fewer than 10 matched animals, pairs are tested with a paired t-test on log(1 + value) instead of Wilcoxon, and 3+ levels use a repeated-measures ANOVA on log(1 + value) instead of Friedman. A Wilcoxon test cannot reach p &lt; 0.05 with 5 or fewer pairs (smallest p = 0.0625) and after FDR correction is usually stuck below 10</td>
+<td>Log usage is close to normal for durations and counts. If your data are heavily skewed with many zeros, compare with the option off; at 8-9 animals the two can behave similarly. Values that can be negative (indices) are not log-transformed</td>
+</tr>
+<tr>
+<td><strong>Repeated measures: use all animals (mixed model)</strong></td>
+<td>Animals with data at two or more levels are all used, with a random intercept per animal (likelihood-ratio test on log usage). Previously only animals present at every level were kept</td>
+<td>Use when some animals are missing a session. It only replaces the complete-case test when it adds animals; otherwise the paired test above is used. The status bar reports how many animals were used</td>
+</tr>
+<tr>
+<td><strong>Skip features seen in &lt;3 animals (power)</strong></td>
+<td>Clusters or transitions expressed by fewer than 3 animals are not tested (q reported as 1) so they do not enlarge the correction family</td>
+<td>Rare features cannot be significant at small n anyway. Switch off to test everything</td>
+</tr>
+<tr>
+<td><strong>Show small-n note</strong></td>
+<td>One short line when the chosen test cannot reach significance at your n</td>
+<td>Informational only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Effect sizes with confidence intervals.</strong> A non-significant q at small n does not mean no effect. CUBE now always reports an effect size with a 95 % confidence interval: Hedges' g between independent groups, paired dz for repeated measures, Cohen's d against a reference for one-sample tests. As a rough guide, 0.5 is medium and 0.8 is large. A wide interval that excludes zero but with q &gt; 0.10 marks a promising effect to replicate with more animals.</p>
+<p><strong>New views and files.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>What</th>
+<th>Saved files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unbiased Analytics, <strong>Effect Sizes</strong> view</td>
+<td>Heatmap of effect size per cluster and group pair, marked <code>*</code>/<code>**</code>/<code>+</code></td>
+<td><code>stats_effects.png</code> and <code>stats_effects.csv</code>, plus <code>stats_effects_forest.png</code> (effect with 95 % CI per cluster)</td>
+</tr>
+<tr>
+<td>Unbiased Analytics, <strong>Group Omnibus</strong> view</td>
+<td>Jensen-Shannon distance and PERMANOVA (Aitchison/CLR) permutation tests on overall cluster usage, with a PCA of animals. A single overall test before looking at individual clusters (independent designs)</td>
+<td><code>stats_omnibus.png</code>, <code>stats_omnibus.csv</code>, <code>stats_omnibus_pcoa.csv</code></td>
+</tr>
+<tr>
+<td>Unbiased Analytics, stats export</td>
+<td>Post-hoc table gains <code>tier</code>, <code>test</code>, <code>effect</code>, <code>effect_ci_low</code>, <code>effect_ci_high</code>, <code>n_pairs</code>, <code>gated_out_by_omnibus</code></td>
+<td><code>stats_posthoc.csv</code>, <code>stats.csv</code> (columns <code>tier</code>, <code>test_used</code>)</td>
+</tr>
+<tr>
+<td>Combined Analysis export</td>
+<td>Effect size per behaviour group, metric and group pair; summary and post-hoc tables gain <code>Tier</code>, <code>Test</code>, effect columns</td>
+<td><code>combined_effects_*.csv/.png</code>, <code>combined_summary_*.csv</code>, <code>combined_posthoc_*.csv</code></td>
+</tr>
+<tr>
+<td>Paradigm Results</td>
+<td>Index bar charts show <code>+</code> for suggestive results and one-sample markers <code>(†)</code>; each <code>*_stats</code> table gains the test used, tier and effect size with CI; one-sample results are saved with effect-size CIs</td>
+<td><code>*_stats.csv</code>, <code>*_one_sample.csv</code></td>
+</tr>
+<tr>
+<td>Grp Transitions volcano (Unbiased)</td>
+<td>A dotted line marks q = 0.10; exported pairs include Hedges' g with CI, number of animals expressing the transition and tier</td>
+<td><code>grp_transitions_stats.csv</code></td>
+</tr>
+</tbody>
+</table>
+<p>All figures follow the dark or light theme and are saved together with their CSV by the tab's export and by <strong>Save All Results</strong>.</p>
+<p><strong>Suggested workflow for a small cohort.</strong> (1) Leave the defaults on and run the statistics. (2) Read the <strong>Group Omnibus</strong> result first: if the overall usage pattern differs, per-cluster results are more credible. (3) Look at <strong>Effect Sizes</strong> and the forest plot, not only the stars. (4) Treat <code>*</code> as a finding and <code>+</code> as a hypothesis to test in the next cohort. (5) Name behaviours and analyse behaviour groups rather than raw clusters when you can: fewer tests means a smaller correction.</p>
+<blockquote>
+<p>[!NOTE]
+Pseudo-replication is still your responsibility: if the same animal contributes several sessions to one group, give it a Label 3 / Animal ID so sessions are averaged and the design is recognised as repeated measures.</p>
+</blockquote>
 <h2 id="behavioral-explorer-tab">Behavioral Explorer tab<a class="anchor" href="#behavioral-explorer-tab" aria-label="Link to this section">#</a></h2>
 <p>Group-level views of sequence structure: <strong>Diff Heatmap</strong> (difference between transition matrices of two groups), <strong>Dwell Violin</strong> (distribution of dwell times for each state and group), <strong>Sankey</strong> (flow of behavioural sequences per group), <strong>Group Transitions</strong> (transition probabilities per group) <strong>Group Networks</strong> (circular transition networks per group, above-chance edges only) and <strong>Energy Landscape</strong> (an occupancy-based landscape over the UMAP embedding: common states are valleys and rare states are peaks).</p>
 <h2 id="group-predictor-tab">Group Predictor Tab<a class="anchor" href="#group-predictor-tab" aria-label="Link to this section">#</a></h2>
