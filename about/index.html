@@ -112,7 +112,7 @@
     <p>The analyser provides ethograms, bout statistics, transition analyses, group comparisons and reclustering, plus a Group Predictor that tests whether behavioural profiles can classify group membership (with permutation testing). Paradigm-aware metrics are available when you trace arena regions and objects.</p>
 
     <h2 id="compare">How CUBE relates to other tools</h2>
-    <p>CUBE builds on B-SOiD and sits alongside other well-validated tools such as VAME and keypoint-MoSeq. These tools were designed for different needs, and none is best in every setting. The points below describe where CUBE's design differs; they are design choices, not measured differences in performance, and CUBE has not been benchmarked head-to-head against these tools.</p>
+    <p>CUBE builds on B-SOiD and sits alongside other well-validated tools such as VAME and keypoint-MoSeq. These tools were designed for different needs, and none is best in every setting. The points below describe where CUBE's design differs. They reflect design choices rather than measured differences in performance. CUBE is under active development, and suggestions are very welcome.</p>
     <h3 id="differences">Where CUBE's design differs</h3>
     <ol>
       <li><strong>A single application from recording to figures.</strong> Video alignment, pose estimation, pre-processing, clustering, annotation and statistics are run from one point-and-click interface, so a complete analysis does not require programming or moving files between separate programs. Every stage of a run is saved to one folder.</li>
@@ -127,6 +127,7 @@
       <li><strong>VAME</strong> (Luxem et al. 2022) learns a temporal embedding with a neural network. CUBE does not adopt that architecture or its training cost, and uses temporally aware features and smoothing to address a related question by simpler means.</li>
       <li><strong>keypoint-MoSeq</strong> (Weinreb et al. 2024) models keypoint uncertainty explicitly. CUBE uses a simpler analogue, in which low per-body-part confidence is used as a feature so that unreliable frames can be separated from behaviour clusters.</li>
     </ul>
+    <p class="callout">CUBE is under active development, and formal comparisons with other tools are still to come. The points above describe design choices rather than measured differences in performance. The tools mentioned are well-established, widely used methods, and comments and suggestions are very welcome.</p>
     
 
     <h2 id="requirements">What you need</h2>
