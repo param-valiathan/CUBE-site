@@ -242,7 +242,7 @@
 <li>Click <strong>Run Models</strong> with the default settings.</li>
 <li>Check the permutation p-value (green means significant) and click <strong>View</strong> on the best model to see its confusion matrix and the features that drive it.</li>
 </ol>
-<p>The classifier can be an elastic-net logistic regression or a linear SVM. See <span>GROUP_PREDICTOR_REFERENCE.md</span> for algorithms, figures and interpretation.</p>
+<p>The classifier can be an elastic-net logistic regression, a linear SVM, a shrinkage LDA or PLS-DA (see the target-group section below for when to use each). See <span>GROUP_PREDICTOR_REFERENCE.md</span> for algorithms, figures and interpretation.</p>
 <h3 id="detecting-one-group-among-several-target-group-contrasts-and-group-statistics">Detecting one group among several (target group, contrasts and group statistics)<a class="anchor" href="#detecting-one-group-among-several-target-group-contrasts-and-group-statistics" aria-label="Link to this section">#</a></h3>
 <p>With three or more groups the default models try to separate <em>every</em> group from every other. That is often the wrong question. In a baseline / saline / drug design you usually only need to know whether the <strong>drug</strong> group can be told apart from the other two; telling baseline from saline is irrelevant and only dilutes the result. The <strong>Target Group &amp; Contrasts</strong> section of the sidebar handles this.</p>
 <p><strong>Step by step</strong></p>
@@ -297,8 +297,14 @@
 <tr>
 <td>Algorithm</td>
 <td>Elastic Net</td>
-<td>Classifier</td>
-<td>Run Elastic Net first, then the linear SVM as a cross-check. Agreement between the two is reassuring</td>
+<td>Classifier for the three main models. <strong>Elastic Net</strong> (default): L1 selects, L2 shares weight across correlated clusters, gives probabilities. <strong>SVM (linear)</strong>: same accuracy class, but its probabilities (Platt scaling) are less reliable at small n, so use it mainly as a cross-check. <strong>Shrinkage LDA</strong>: no tuning, very stable when animals are few; good when many features each carry a little signal. <strong>PLS-DA</strong>: projects onto 2 latent components, robust to collinearity and common in phenotyping work</td>
+<td>Start with Elastic Net, then rerun with Shrinkage LDA. If you only have 5-8 animals per group prefer LDA or PLS-DA</td>
+</tr>
+<tr>
+<td>Model agreement</td>
+<td>on</td>
+<td>Re-fits the same features with all four classifiers (leave-one-out only, no permutations) and compares them</td>
+<td>Leave on. Conclusions that hold for all four are robust; if only one classifier finds the effect, treat it as fragile</td>
 </tr>
 <tr>
 <td>Max contributors</td>
@@ -319,6 +325,7 @@
 <li><strong>Classifier contrasts</strong> (<code>contrast_summary</code>): one dot per contrast, with the area under the ROC curve (AUC) and its 95 % bootstrap interval. 0.5 is chance. Green means the BH-corrected q is below 0.05. The label also gives balanced accuracy and the <em>minimum detectable accuracy</em>, the accuracy a model must exceed to reach p &lt; 0.05 given your sample size; if your observed accuracy is below it, you do not have the power to claim an effect.</li>
 <li><strong>Omnibus usage tests</strong> (<code>omnibus_usage_tests</code>): the Jensen-Shannon distance and PERMANOVA ask whether the <em>overall</em> distribution of time across clusters differs between groups, before looking at any single cluster. The histograms are the permutation null; the red line is your data. The PCA plot shows animals coloured by group (R² is the share of variation explained by group).</li>
 <li><strong>Per-cluster effects</strong> (<code>usage_effects</code>): a heatmap of Hedges g (effect size, A minus B; about 0.5 is medium and 0.8 is large) for the clusters with the largest effects. <code>*</code> marks q &lt; 0.05 and <code>**</code> q &lt; 0.01 after FDR correction across clusters. If the same animals appear in more than one group, a mixed model with a random intercept per animal is used; otherwise a Mann-Whitney test. The <code>test</code> column in the CSV says which.</li>
+<li><strong>Model agreement</strong> (<code>model_agreement</code>): balanced accuracy of the four classifiers on the same features, and a matrix of Cohen's kappa between their leave-one-out predictions (1 = identical predictions). Large differences between classifiers mean the result depends on the method; <code>model_agreement_predictions.csv</code> shows, animal by animal, which classifiers got it right.</li>
 <li><strong>Sequence features</strong> (<code>sequence_features</code>, <code>sequence_effects</code>): bouts per minute, mean bout length, bout-length variability, usage entropy, transition entropy (how predictable the next behaviour is) and the share of the dominant cluster. Use them to see whether the drug changes <em>how</em> behaviour is structured, not just how much of each behaviour occurs.</li>
 </ul>
 <p><strong>Common situations</strong></p>
@@ -356,6 +363,8 @@
 <li><strong>Selection is optimistic until nested.</strong> If you pick the target after seeing the data, or run many configurations, correct for it. Use the nested permutation test for any claim you publish.</li>
 <li><strong>No signal?</strong> Try a larger permutation count only after checking the minimum detectable accuracy; try CLR on; try Behaviour groups instead of clusters; check that the animals' recordings are long enough for stable cluster usage.</li>
 </ul>
+<p><strong>What is saved.</strong> <strong>Export Results</strong> (and <strong>Save All Results</strong>) wait for the background contrast analyses to finish, then write: the model summary, per-animal predictions, confusion matrices, feature importances and permutation nulls; every contrast plot as a PNG with its CSV (contrast_summary, model_agreement plus model_agreement_kappa and model_agreement_predictions, omnibus_tests plus omnibus_pcoa and omnibus_null, usage_effects, sequence_features, sequence_effects); and
+un_config.json, which records the target group, classifier, feature source, permutations, CLR setting, group sizes, contrasts tested and all warnings, so every saved result can be reproduced and interpreted later.</p>
 
       <nav class="pn-row" aria-label="Previous and next"><a class="pn pn--prev" href="../guide/output-files/"><span>Previous</span>Understanding the output files</a><a class="pn pn--next" href="../guide/recombination/"><span>Next</span>Recombination guide</a></nav>
     </article>
