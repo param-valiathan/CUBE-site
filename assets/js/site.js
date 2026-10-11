@@ -203,6 +203,8 @@
 
   /* video page: chapter buttons seek the player */
   var player = $("#overview");
+  if (player && reduce) { player.removeAttribute("autoplay"); player.pause(); }
+  else if (player) { var ap = player.play(); if (ap && ap.catch) ap.catch(function () {}); }
   if (player) $$(".chapter").forEach(function (b) {
     b.addEventListener("click", function () {
       var t = parseFloat(b.getAttribute("data-t")) || 0;
