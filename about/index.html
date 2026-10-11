@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What is CUBE? Unsupervised animal behaviour analysis</title>
-<meta name="description" content="How CUBE combines DeepLabCut pose, UMAP, HDBSCAN and HMM smoothing to discover animal behaviours without manual labels, and how it relates to B-SOiD, VAME and keypoint-MoSeq.">
+<title>What is CUBE? Unsupervised animal behaviour discovery from pose</title>
+<meta name="description" content="CUBE v5 discovers and quantifies animal behaviour from DeepLabCut pose using UMAP, HDBSCAN and HMM smoothing, building on B-SOiD. How it works and how it relates to VAME and keypoint-MoSeq.">
 <link rel="canonical" href="https://param-valiathan.github.io/CUBE-site/about/">
 <meta name="theme-color" content="#0B2A4A">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CUBE">
-<meta property="og:title" content="What is CUBE? Unsupervised animal behaviour analysis">
-<meta property="og:description" content="How CUBE combines DeepLabCut pose, UMAP, HDBSCAN and HMM smoothing to discover animal behaviours without manual labels, and how it relates to B-SOiD, VAME and keypoint-MoSeq.">
+<meta property="og:title" content="What is CUBE? Unsupervised animal behaviour discovery from pose">
+<meta property="og:description" content="CUBE v5 discovers and quantifies animal behaviour from DeepLabCut pose using UMAP, HDBSCAN and HMM smoothing, building on B-SOiD. How it works and how it relates to VAME and keypoint-MoSeq.">
 <meta property="og:url" content="https://param-valiathan.github.io/CUBE-site/about/">
 <meta property="og:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="What is CUBE? Unsupervised animal behaviour analysis">
-<meta name="twitter:description" content="How CUBE combines DeepLabCut pose, UMAP, HDBSCAN and HMM smoothing to discover animal behaviours without manual labels, and how it relates to B-SOiD, VAME and keypoint-MoSeq.">
+<meta name="twitter:title" content="What is CUBE? Unsupervised animal behaviour discovery from pose">
+<meta name="twitter:description" content="CUBE v5 discovers and quantifies animal behaviour from DeepLabCut pose using UMAP, HDBSCAN and HMM smoothing, building on B-SOiD. How it works and how it relates to VAME and keypoint-MoSeq.">
 <meta name="twitter:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
@@ -83,7 +83,7 @@
   <div class="container prose">
     <h2 id="idea">The idea</h2>
     <p>CUBE integrates <strong>DeepLabCut</strong> pose estimation with an unsupervised machine-learning pipeline to automatically discover and quantify behavioural patterns. It does not need manual labelling, predefined behaviour categories or frame-by-frame annotation. You provide videos; CUBE finds the recurring postures and movements, shows you examples, and lets you name them.</p>
-    <p>The core method follows <strong>B-SOiD</strong> (Hsu and Yttri 2021, <em>Nature Communications</em> 12:5188) and extends it with multi-scale features, body-size normalisation, a cluster-validity sweep, temporal smoothing, interactive annotation and a built-in statistics suite.</p>
+    <p>CUBE is built on the approach introduced by <strong>B-SOiD</strong> (Hsu and Yttri 2021, <em>Nature Communications</em> 12:5188): pose features, UMAP embedding, HDBSCAN clustering and a fast classifier. CUBE v5 adds multi-scale features, body-size normalisation, a cluster-validity sweep, temporal smoothing, interactive annotation and a built-in statistics suite, and it builds on the B-SOiD work rather than replacing it. This page describes version 5.</p>
 
     <h2 id="pipeline">The pipeline</h2>
     <div class="step-rail">
@@ -110,14 +110,14 @@
     <p>The analyser provides ethograms, bout statistics, transition analyses, group comparisons and reclustering, plus a Group Predictor that tests whether behavioural profiles can classify group membership (with permutation testing). Paradigm-aware metrics are available when you trace arena regions and objects.</p>
 
     <h2 id="compare">How CUBE relates to other tools</h2>
-    <p>CUBE keeps the B-SOiD architecture, which is fast and needs no neural-network training on a GPU, and adds features aimed at known weaknesses:</p>
+    <p>Several excellent open-source tools address related questions, and the right choice depends on the data and the question. CUBE keeps the B-SOiD architecture, which is fast and needs no neural-network training on a GPU, and adds options that target specific analysis needs:</p>
     <ul>
-      <li><strong>B-SOiD</strong> embeds each time window independently, so one behaviour can fragment across clusters. CUBE adds a cluster-merge pass and temporal smoothing.</li>
-      <li><strong>VAME</strong> learns a temporal embedding with a neural network. CUBE does not adopt that architecture or its retraining cost, but its merging and optional body-region weighting aim at the same fragmentation problem.</li>
-      <li><strong>keypoint-MoSeq</strong> models keypoint uncertainty explicitly. CUBE uses a simpler analogue: low per-body-part confidence becomes its own feature, so unreliable frames can be isolated instead of scattered through real behaviour clusters.</li>
+      <li><strong>B-SOiD</strong> classifies pose features window by window. CUBE adds a cluster-merge pass and temporal smoothing, intended to reduce the splitting of one behaviour across several clusters.</li>
+      <li><strong>VAME</strong> (Luxem et al. 2022) learns a temporal embedding with a neural network. CUBE does not adopt that architecture or its training cost; its merging and optional body-region weighting address a related question by simpler means.</li>
+      <li><strong>keypoint-MoSeq</strong> (Weinreb et al. 2024) models keypoint uncertainty explicitly. CUBE uses a simpler analogue: low per-body-part confidence becomes its own feature, so unreliable frames can be separated from behaviour clusters.</li>
       <li><strong>Arena awareness:</strong> optional region-aware cluster splitting lets spatial structure, such as the open arms of an elevated plus maze, reveal distinct behaviours without letting position replace movement as the classification signal.</li>
     </ul>
-    <p class="callout">CUBE has not been entered into an independent head-to-head benchmark. The comparisons above describe design choices, not measured differences in performance.</p>
+    <p class="callout">CUBE has not been entered into an independent head-to-head benchmark. The comparisons above describe design choices, not measured differences in performance, and the other tools are validated, widely used methods that CUBE builds on or complements.</p>
 
     <h2 id="requirements">What you need</h2>
     <ul>
