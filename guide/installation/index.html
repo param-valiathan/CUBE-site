@@ -128,11 +128,11 @@
 <p>In CUBE, choose <strong>Help → System check</strong> (or press the <strong>System check</strong> button). The report shows, for each step, what is installed and what is missing, whether your GPU was found, and how to fix problems. <strong>Copy report</strong> puts the text on the clipboard so you can paste it into an email. Without opening CUBE: <code>python cube.py --check</code>.</p>
 <h2 id="installing-by-hand-advanced">Installing by hand (advanced)<a class="anchor" href="#installing-by-hand-advanced" aria-label="Link to this section">#</a></h2>
 <p>CUBE is developed with <strong>Python 3.12.13</strong>. From the CUBE folder, with any conda:</p>
-<pre><code class="language-bat">conda env create -f environment.yml
+<pre><code class="language-bat">conda env create -f env/environment.yml
 conda activate CUBE
-python -m pip install --no-deps -r requirements-lock.txt
+python -m pip install --no-deps -r env/requirements-lock.txt
 </code></pre>
-<p><code>--no-deps</code> is needed because DeepLabCut's metadata asks for <code>numpy&lt;2</code> while CUBE runs numpy 2.4; the lock file lists every package at its tested version. Use <code>environment-cpu.yml</code> and <code>requirements-lock-cpu.txt</code> on a computer without an NVIDIA GPU. Installer options (run from a terminal): <code>install_cube.bat -Cpu</code>, <code>-Gpu</code>, <code>-Recreate</code>.</p>
+<p><code>--no-deps</code> is needed because DeepLabCut's metadata asks for <code>numpy&lt;2</code> while CUBE runs numpy 2.4; the lock file lists every package at its tested version. Use <code>env/environment-cpu.yml</code> and <code>env/requirements-lock-cpu.txt</code> on a computer without an NVIDIA GPU. Installer options (run from a terminal): <code>install_cube.bat -Cpu</code>, <code>-Gpu</code>, <code>-Recreate</code>.</p>
 <blockquote>
 <p><strong>Important:</strong> DeepLabCut must be in the <code>CUBE</code> environment, not a separate one. Step 1 explains this and stops with a clear message if DeepLabCut or PyTorch is missing. Steps 2 to 5 do not need them.</p>
 </blockquote>
