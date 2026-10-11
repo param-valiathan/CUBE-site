@@ -112,14 +112,22 @@
     <p>The analyser provides ethograms, bout statistics, transition analyses, group comparisons and reclustering, plus a Group Predictor that tests whether behavioural profiles can classify group membership (with permutation testing). Paradigm-aware metrics are available when you trace arena regions and objects.</p>
 
     <h2 id="compare">How CUBE relates to other tools</h2>
-    <p>Several excellent open-source tools address related questions, and the right choice depends on the data and the question. CUBE keeps the B-SOiD architecture, which is fast and needs no neural-network training on a GPU, and adds options that target specific analysis needs:</p>
+    <p>CUBE builds on B-SOiD and sits alongside other well-validated tools such as VAME and keypoint-MoSeq. These tools were designed for different needs, and none is best in every setting. The points below describe where CUBE's design differs; they are design choices, not measured differences in performance, and CUBE has not been benchmarked head-to-head against these tools.</p>
+    <h3 id="differences">Where CUBE's design differs</h3>
+    <ol>
+      <li><strong>A single application from recording to figures.</strong> Video alignment, pose estimation, pre-processing, clustering, annotation and statistics are run from one point-and-click interface, so a complete analysis does not require programming or moving files between separate programs. Every stage of a run is saved to one folder.</li>
+      <li><strong>Temporally aware, animal-centred clustering with a reproducibility check.</strong> Features describe posture and movement in animal-centred (egocentric) coordinates together with the order of movements. Clustering is repeated across random seeds and the agreement between runs is reported. When agreement is low, CUBE builds a representative (medoid) or consensus partition, so that the result depends less on a single seed.</li>
+      <li><strong>Researcher-guided refinement and correction.</strong> Clusters are named by watching example clips, and can be merged, split or recombined by hand, with a dendrogram view to support the decision. Optional guided labelling lets you supply your own labelled examples, so manual input remains possible at each stage rather than only at the end.</li>
+      <li><strong>Built-in analysis and figures.</strong> The analyser produces ethograms, bout statistics, bar charts, transition analyses and group comparisons that highlight clusters whose usage changes between conditions, including behaviours that were not defined in advance. A Group Predictor, based on regularised logistic regression (a generalised linear model) with permutation testing, asks whether behavioural profiles distinguish the groups.</li>
+      <li><strong>Arena-aware clustering.</strong> Optionally, clustering can take the position of the animal in traced regions of the arena into account, such as the open arms of an elevated plus maze, so that spatial context can help separate behaviours without letting position replace movement as the classification signal.</li>
+    </ol>
+    <h3 id="related-tools">Related tools</h3>
     <ul>
-      <li><strong>B-SOiD</strong> classifies pose features window by window. CUBE adds a cluster-merge pass and temporal smoothing, intended to reduce the splitting of one behaviour across several clusters.</li>
-      <li><strong>VAME</strong> (Luxem et al. 2022) learns a temporal embedding with a neural network. CUBE does not adopt that architecture or its training cost; its merging and optional body-region weighting address a related question by simpler means.</li>
-      <li><strong>keypoint-MoSeq</strong> (Weinreb et al. 2024) models keypoint uncertainty explicitly. CUBE uses a simpler analogue: low per-body-part confidence becomes its own feature, so unreliable frames can be separated from behaviour clusters.</li>
-      <li><strong>Arena awareness:</strong> optional region-aware cluster splitting lets spatial structure, such as the open arms of an elevated plus maze, reveal distinct behaviours without letting position replace movement as the classification signal.</li>
+      <li><strong>B-SOiD</strong> (Hsu and Yttri 2021) introduced the pose-feature, UMAP, HDBSCAN and fast-classifier approach that CUBE follows. CUBE keeps its speed and its lack of GPU training.</li>
+      <li><strong>VAME</strong> (Luxem et al. 2022) learns a temporal embedding with a neural network. CUBE does not adopt that architecture or its training cost, and uses temporally aware features and smoothing to address a related question by simpler means.</li>
+      <li><strong>keypoint-MoSeq</strong> (Weinreb et al. 2024) models keypoint uncertainty explicitly. CUBE uses a simpler analogue, in which low per-body-part confidence is used as a feature so that unreliable frames can be separated from behaviour clusters.</li>
     </ul>
-    <p class="callout">CUBE has not been entered into an independent head-to-head benchmark. The comparisons above describe design choices, not measured differences in performance, and the other tools are validated, widely used methods that CUBE builds on or complements.</p>
+    
 
     <h2 id="requirements">What you need</h2>
     <ul>
