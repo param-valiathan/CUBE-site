@@ -101,12 +101,23 @@ p { margin: 0 0 1em; }
 /* ---------- hero ---------- */
 .hero { position: relative; overflow: hidden; padding: clamp(56px, 9vw, 110px) 0 0; isolation: isolate; }
 .hero__bg { position: absolute; inset: 0; z-index: -2; background: var(--bg); }
-.blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; animation: float 18s ease-in-out infinite; }
-.blob--1 { width: 520px; height: 520px; background: var(--blue); left: -120px; top: -140px; }
-.blob--2 { width: 480px; height: 480px; background: var(--teal); right: 8%; top: -100px; animation-delay: -6s; opacity: .4; }
-.blob--3 { width: 560px; height: 560px; background: var(--purple); right: -160px; top: 220px; animation-delay: -11s; opacity: .38; }
-:root[data-theme="dark"] .blob { opacity: .28; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .blob { opacity: .28; } }
+.blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .20; animation: float 18s ease-in-out infinite; }
+.blob--1 { width: 520px; height: 520px; background: #7FB8E6; left: -120px; top: -140px; }
+.blob--2 { width: 480px; height: 480px; background: #8FDCC8; right: 8%; top: -100px; animation-delay: -6s; }
+.blob--3 { width: 560px; height: 560px; background: #C7B2EC; right: -160px; top: 220px; animation-delay: -11s; }
+.hero__bg { background: linear-gradient(180deg, #EEF5FC 0%, var(--bg) 100%); }
+:root[data-theme="dark"] .blob { opacity: .28; filter: blur(70px); }
+:root[data-theme="dark"] .blob--1 { background: var(--blue); }
+:root[data-theme="dark"] .blob--2 { background: var(--teal); }
+:root[data-theme="dark"] .blob--3 { background: var(--purple); }
+:root[data-theme="dark"] .hero__bg { background: var(--bg); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .blob { opacity: .28; filter: blur(70px); }
+  :root:not([data-theme="light"]) .blob--1 { background: var(--blue); }
+  :root:not([data-theme="light"]) .blob--2 { background: var(--teal); }
+  :root:not([data-theme="light"]) .blob--3 { background: var(--purple); }
+  :root:not([data-theme="light"]) .hero__bg { background: var(--bg); }
+}
 @keyframes float { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(40px,30px) scale(1.06); } 66% { transform: translate(-30px,50px) scale(.96); } }
 #hero-net { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
 .hero__inner { text-align: center; max-width: 880px; margin-inline: auto; }
