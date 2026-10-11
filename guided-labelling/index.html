@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guided labelling | CUBE user guide</title>
+<meta name="description" content="Human-in-the-loop labelling: steer unsupervised clusters towards the behaviours you care about and check them honestly.">
+<link rel="canonical" href="https://param-valiathan.github.io/CUBE-site/guided-labelling/">
+<meta name="theme-color" content="#0B2A4A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CUBE">
+<meta property="og:title" content="Guided labelling | CUBE user guide">
+<meta property="og:description" content="Human-in-the-loop labelling: steer unsupervised clusters towards the behaviours you care about and check them honestly.">
+<meta property="og:url" content="https://param-valiathan.github.io/CUBE-site/guided-labelling/">
+<meta property="og:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guided labelling | CUBE user guide">
+<meta name="twitter:description" content="Human-in-the-loop labelling: steer unsupervised clusters towards the behaviours you care about and check them honestly.">
+<meta name="twitter:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("cube-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+  document.documentElement.classList.add("js");
+})();
+</script>
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="container nav__inner">
+    <a class="brand" href="../" aria-label="CUBE home">
+      <img src="../assets/img/logo-mark.png" width="38" height="38" alt="">
+      <span class="brand__word">CUBE</span>
+    </a>
+    <nav class="nav__links" id="nav-links" aria-label="Main">
+      <a class="" href="../about/">About</a>
+      <a class="" href="../get-started/">Get started</a>
+      <a class="is-active" href="../guide/">Guide</a>
+      <a class="" href="../analyser/">Analyser</a>
+      <a class="" href="../gallery/">Gallery</a>
+      <a class="" href="../video/">Video</a>
+      <a class="" href="../cite/">Cite</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost nav__gh" href="https://github.com/param-valiathan/CUBE" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+      <button class="icon-btn nav__burger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+
+<main id="main">
+<section class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../guide/">User guide</a> / Guided labelling</p>
+    <h1>Guided labelling</h1>
+    <p class="lead">Human-in-the-loop labelling: steer unsupervised clusters towards the behaviours you care about and check them honestly.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container docs">
+    <aside class="docs__side" aria-label="Documentation navigation">
+<label class="sr-only" for="doc-search">Search the guide</label><input class="search" id="doc-search" type="search" placeholder="Search the guide" autocomplete="off" data-index="../assets/search-index.json" data-root="../"><div class="search-results" id="search-results" hidden></div><h3>User guide</h3><div class="docs__nav">
+<h3 class="grp">Start</h3>
+<a href="../guide/">CUBE user guide</a>
+<a href="../guide/quick-start/">Quick start: your first analysis</a>
+<a href="../guide/installation/">Installation and launching</a>
+<h3 class="grp">The pipeline</h3>
+<a href="../guide/step-1-dlc/">Step 1: DLC inference</a>
+<a href="../guide/step-2-preprocessing/">Step 2: pre-processing</a>
+<a href="../guide/step-3-discover/">Step 3: features, UMAP and clustering</a>
+<a href="../guide/step-4-annotate/">Step 4: cluster annotation</a>
+<a href="../guide/step-5-analyse/">Step 5: behavioural analysis</a>
+<a href="../guide/output-files/">Understanding the output files</a>
+<h3 class="grp">Analyse</h3>
+<a href="../analyser/">The behavioural analyser</a>
+<a href="../guide/recombination/">Recombination guide</a>
+<a href="../paradigms/">Behavioural paradigms and arena context</a>
+<a class="is-on" href="../guided-labelling/">Guided labelling</a>
+<h3 class="grp">Reference</h3>
+<a href="../guide/hmm-smoothing/">HMM smoothing</a>
+<a href="../guide/advanced-settings/">Advanced settings</a>
+<a href="../guide/autosave-and-compatibility/">Autosave, loading and compatibility</a>
+<h3 class="grp">Help</h3>
+<a href="../guide/troubleshooting/">Troubleshooting</a>
+<a href="../3d/">3D multi-camera mode</a>
+</div>
+<h3>On this page</h3><a class="" href="#steps">Steps</a><a class="" href="#tips-and-pitfalls">Tips and pitfalls</a>
+    </aside>
+    <article class="prose">
+<aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Steer clusters towards the behaviours you define, and check the result honestly.</span></div><div><b>You need</b><span>A finished Step 3 run and some videos you can label.</span></div><div><b>You get</b><span>Labels, a guided behaviour track and before/after plots.</span></div><div><b>Time</b><span>Label as much as you need</span></div></aside><p><strong>What it is for:</strong> CUBE's clusters sometimes do not isolate a behaviour you know well (rare behaviours, or behaviours seen only when the animal turns away). Guided labelling lets you mark examples of your behaviours so the clustering follows them. Nothing changes until you label; a run without labels is identical to a blind run.</p>
+<figure class="doc-fig "><img src="../assets/img/oft-umap-before-after.webp" width="1800" height="626" loading="lazy" alt="Open field UMAP before and after guided labelling"><figcaption>Blind CUBE clusters (left), CUBE with guided labels on held-out videos (middle) and the human labels on the same embedding (right). Open field, public data of Sturman et al. (2020).</figcaption></figure>
+
+<p>Guided labelling is the second tab of the Video Explorer (Step 4).</p>
+<h2 id="steps">Steps<a class="anchor" href="#steps" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Finish Step 3 on your data. Open Step 4 and choose the <strong>Guided labelling</strong> tab (it also opens from any folder inside a run; use &quot;Open a CUBE run&quot; if none is found).</li>
+<li>Add your behaviours (a name and a colour each). Two names are reserved: <em>Background</em> (&quot;none of my behaviours&quot;) and <em>Neither</em>.</li>
+<li>Label in either of two ways: <strong>(a)</strong> play a video, press <strong>Start</strong> and <strong>End</strong>, then click the coloured behaviour button (or keys 1 to 9); click a segment and another button to change it later; <strong>(b)</strong> answer <strong>question cards</strong>, with one coloured button per behaviour plus Neither, Skip and Stop. <strong>Ask about</strong> focuses the questions on one behaviour, which helps for a rare one.</li>
+<li>When you have marked <strong>every</strong> instance of your behaviours in a video, tick <strong>This video is fully labelled</strong>. The unmarked time then counts as true negatives. This is the only way to measure false positives honestly.</li>
+<li>After each round of questions, the tool reports leakage on your fully labelled videos and says <strong>STOP?</strong> when it has stopped improving (less than 2 points over 2 rounds). Then label a different animal fully, or add examples of what is <em>not</em> your behaviour.</li>
+<li><strong>Save results</strong> writes your labels, the guided behaviour track and an Analyser-ready folder, <code>CUBE 3b - Guided behaviours</code> (bout lengths, <code>cluster_behaviour_mapping.tsv</code> and <code>behaviour_groups.json</code>; several clusters of one behaviour are saved as one behaviour group). <strong>Produce plots</strong> writes <code>plots/guided/</code> (before and after UMAPs, Coverage, Leakage and Ratio before and after, the labelled hierarchy and tables). Closing the annotator asks you to save if labels changed. Rerunning Step 3 applies the labels to the clustering: poorly tracked bins are reclustered separately, your bout lengths and transitions feed the HMM, and your names appear on the hierarchy and trajectory plots.</li>
+</ol>
+<p><strong>What to expect.</strong> Example results on the public open field and elevated plus maze data, with whole videos held out (Coverage % / Leakage %): elevated plus maze Grooming 99 / 6 and Head Dip 96 / 23, against 50 / 10 and 2 / 59 for CUBE's blind clusters; open field Supported 94 / 15, Unsupported 74 / 17 and Grooming 70 / 8, against 12 / 25, 0 and 0. Behaviours with only a few dozen labelled bins (for example elevated plus maze Unprotected Stretch and open field Jumping) are not learned. After about 7 minutes of simulated labelling (400 clips), elevated plus maze Rearing reached 53 / 20 and Protected Stretch 75 / 38. The before/after plot in the tool is <em>in-sample</em> (a check of how well the clusters now match your labels); held-out accuracy needs labelled videos that were not used for training.</p>
+<figure class="doc-fig "><img src="../assets/img/epm-umap-before-after.webp" width="1800" height="626" loading="lazy" alt="Elevated plus maze UMAP before and after guided labelling"><figcaption>The same comparison on the elevated plus maze.</figcaption></figure>
+
+<h2 id="tips-and-pitfalls">Tips and pitfalls<a class="anchor" href="#tips-and-pitfalls" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Label several behaviours <em>in the same videos</em>. Behaviours labelled in different videos teach the classifier to recognise the animal instead (the tab warns you).</li>
+<li>Do not rely on the &quot;Neither&quot; answer as a trained class until you have many examples spread over several videos; it is used to check false positives.</li>
+<li>Behaviours that occur together (for example Guarding then Licking) are exported both separately and as a combined &quot;family&quot;.</li>
+<li>If your reference labels come from another tool, check their time base. The elevated plus maze and open field example videos are 25 fps, but CUBE bins assume 30 fps (one bin is 0.12 s of label time).</li>
+<li>Close and reopen the annotator after updating CUBE; an old window can drop newer label-file keys when it saves.</li>
+<li>Settings (<code>guided_*</code>), file layout, method and validation are described in <span>GUIDED_LABELLING_REFERENCE.md</span>.</li>
+</ul>
+<hr />
+
+      <nav class="pn-row" aria-label="Previous and next"><a class="pn pn--prev" href="../paradigms/"><span>Previous</span>Behavioural paradigms and arena context</a><a class="pn pn--next" href="../guide/hmm-smoothing/"><span>Next</span>HMM smoothing</a></nav>
+    </article>
+  </div>
+</section>
+
+</main>
+<section class="creator" aria-labelledby="creator-h">
+  <div class="container creator__inner">
+    <div class="creator__text">
+      <p class="eyebrow">About the developer</p>
+      <h2 id="creator-h">Developed by Param Valiathan</h2>
+      <p>CUBE was developed by Param Valiathan in the laboratory of Patrik Ernfors at Karolinska Institutet (<a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener" target="_blank">research group website</a>). Questions, bug reports and suggestions are welcome: open an issue on GitHub or get in touch on LinkedIn.</p>
+    </div>
+    <div class="creator__links">
+      <a class="btn btn--linkedin" href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Connect on LinkedIn
+      </a>
+      <a class="btn btn--ghost" href="https://github.com/param-valiathan/CUBE" rel="noopener" target="_blank">View the code on GitHub</a>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer__stripe" aria-hidden="true"></div>
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="brand" href="../"><img src="../assets/img/logo-mark.png" width="34" height="34" alt=""><span class="brand__word">CUBE</span></a>
+      <p>Comprehensive Unsupervised Behavioural Explorer. From video to behaviour, end to end.</p>
+    </div>
+    <nav class="footer__col" aria-label="Learn">
+      <h3>Learn</h3>
+      <a href="../about/">What is CUBE</a>
+      <a href="../get-started/">Get started</a>
+      <a href="../guide/">Pipeline guide</a>
+      <a href="../analyser/">Analyser</a>
+    </nav>
+    <nav class="footer__col" aria-label="Explore">
+      <h3>Explore</h3>
+      <a href="../guided-labelling/">Guided labelling</a>
+      <a href="../paradigms/">Behavioural paradigms</a>
+      <a href="../3d/">3D multi-camera</a>
+      <a href="../gallery/">Gallery</a>
+      <a href="../video/">Overview video</a>
+    </nav>
+    <nav class="footer__col" aria-label="Project">
+      <h3>Project</h3>
+      <a href="https://github.com/param-valiathan/CUBE" rel="noopener">GitHub repository</a>
+      <a href="../cite/">Cite and credits</a>
+      <a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener">Research group (KI)</a>
+      <a href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener">LinkedIn</a>
+    </nav>
+  </div>
+  <div class="container footer__legal">
+    <p>&copy; 2026 Param Valiathan. CUBE is research software; if you use it, please cite it (see Cite and credits). A preprint is in preparation.</p>
+    <p>Built on DeepLabCut and the B-SOiD method. Open field and elevated plus maze examples use the public dataset of Sturman et al. (2020).</p>
+  </div>
+</footer>
+
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

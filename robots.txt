@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://param-valiathan.github.io/CUBE-site/sitemap.xml

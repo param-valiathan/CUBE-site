@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUBE gallery: behaviour clusters, ethograms and sequences</title>
+<meta name="description" content="Real CUBE outputs from open field and elevated plus maze analyses: UMAP embeddings before and after labelling, cluster postures, ethograms, behaviour sequences and state-space projections.">
+<link rel="canonical" href="https://param-valiathan.github.io/CUBE-site/gallery/">
+<meta name="theme-color" content="#0B2A4A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CUBE">
+<meta property="og:title" content="CUBE gallery: behaviour clusters, ethograms and sequences">
+<meta property="og:description" content="Real CUBE outputs from open field and elevated plus maze analyses: UMAP embeddings before and after labelling, cluster postures, ethograms, behaviour sequences and state-space projections.">
+<meta property="og:url" content="https://param-valiathan.github.io/CUBE-site/gallery/">
+<meta property="og:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CUBE gallery: behaviour clusters, ethograms and sequences">
+<meta name="twitter:description" content="Real CUBE outputs from open field and elevated plus maze analyses: UMAP embeddings before and after labelling, cluster postures, ethograms, behaviour sequences and state-space projections.">
+<meta name="twitter:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("cube-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+  document.documentElement.classList.add("js");
+})();
+</script>
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="container nav__inner">
+    <a class="brand" href="../" aria-label="CUBE home">
+      <img src="../assets/img/logo-mark.png" width="38" height="38" alt="">
+      <span class="brand__word">CUBE</span>
+    </a>
+    <nav class="nav__links" id="nav-links" aria-label="Main">
+      <a class="" href="../about/">About</a>
+      <a class="" href="../get-started/">Get started</a>
+      <a class="" href="../guide/">Guide</a>
+      <a class="" href="../analyser/">Analyser</a>
+      <a class="is-active" href="../gallery/">Gallery</a>
+      <a class="" href="../video/">Video</a>
+      <a class="" href="../cite/">Cite</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost nav__gh" href="https://github.com/param-valiathan/CUBE" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+      <button class="icon-btn nav__burger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+
+<main id="main">
+<section class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="../">Home</a> / Gallery</p>
+    <h1>Gallery</h1>
+    <p class="lead">Screenshots of the app and outputs from real CUBE runs on open field and elevated plus maze recordings. Click any figure to enlarge it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filters" role="group" aria-label="Filter figures">
+      <button class="filter is-on" data-f="all" type="button">All</button>
+      <button class="filter" data-f="gui" type="button">App screenshots</button>
+      <button class="filter" data-f="oft" type="button">Open field</button>
+      <button class="filter" data-f="epm" type="button">Elevated plus maze</button>
+      <button class="filter" data-f="record" type="button">Recording</button>
+      <button class="filter" data-f="umap" type="button">Embeddings</button>
+      <button class="filter" data-f="posture" type="button">Postures</button>
+      <button class="filter" data-f="sequence" type="button">Sequences</button>
+    </div>
+    <div class="gallery">
+      <figure class="shot" data-t="record"><img src="../assets/img/story-record.webp" width="1800" height="900" loading="lazy" alt="Rig cameras, open field, elevated plus maze and 2D side view recordings"><figcaption><b>Record: any camera, any rig</b>Three synchronised rig cameras, open field and elevated plus maze (AI-upscaled stills), and a 2D side view.</figcaption></figure>
+      <figure class="shot" data-t="record posture"><img src="../assets/img/track-collage.webp" width="2200" height="846" loading="lazy" alt="Pose tracking on open field, elevated plus maze and side view, and a 3D skeleton"><figcaption><b>Track: pose in 2D and 3D</b>Body points tracked in an open field, an elevated plus maze and a side view, and a reconstructed 3D skeleton.</figcaption></figure>
+      <figure class="shot" data-t="umap"><img src="../assets/img/sideview-umap-before-after.webp" width="2400" height="752" loading="lazy" alt="Side-view UMAP: blind clusters, CUBE with guided labels, and human labels"><figcaption><b>Side view: blind clusters, guided labels and human labels</b>Blind CUBE clusters (left), CUBE with guided labels on held-out videos (middle) and the human labels (right).</figcaption></figure>
+      <figure class="shot" data-t="posture"><img src="../assets/img/sideview-hierarchy-postures.webp" width="2200" height="1282" loading="lazy" alt="Cluster hierarchy with a posture sketch for every cluster"><figcaption><b>Side view: cluster hierarchy and postures</b>A posture sketch for every cluster, arranged by similarity.</figcaption></figure>
+      <figure class="shot" data-t="sequence"><img src="../assets/img/sideview-ethogram.webp" width="1800" height="652" loading="lazy" alt="Ethogram comparing human labels with CUBE with labels and blind clusters"><figcaption><b>Ethogram: human labels vs CUBE</b>One minute of a fully labelled side-view recording.</figcaption></figure>
+      <figure class="shot" data-t="sequence"><img src="../assets/img/sideview-hmm-syntax.webp" width="1600" height="1235" loading="lazy" alt="Behavioural syntax network and chord diagram of state transitions"><figcaption><b>Behavioural syntax</b>Network and chord diagram of transitions between behavioural states, learned by the HMM.</figcaption></figure>
+      <figure class="shot" data-t="sequence"><img src="../assets/img/sideview-dwell-times.webp" width="1800" height="443" loading="lazy" alt="Dwell-time distributions for every state"><figcaption><b>Dwell times</b>How long each behavioural state lasts.</figcaption></figure>
+      <figure class="shot" data-t="umap"><img src="../assets/img/sideview-cluster-validity.webp" width="1800" height="978" loading="lazy" alt="Cluster silhouette diagram and HDBSCAN condensed tree"><figcaption><b>Cluster validity</b>Per-cluster silhouette and the HDBSCAN condensed tree show which clusters are tight and which are weak.</figcaption></figure>
+      <figure class="shot" data-t="umap"><img src="../assets/img/sideview-seed-stability.webp" width="1800" height="698" loading="lazy" alt="Cluster count stability and pairwise agreement across random seeds"><figcaption><b>Seed stability</b>Cluster counts and pairwise agreement across random seeds.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-main-light.webp" width="1800" height="626" loading="lazy" alt="The CUBE main window in light mode"><figcaption><b>Main window (light)</b>Video folders on the left, the five step cards on the right and the pipeline log below.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-main-dark.webp" width="1800" height="626" loading="lazy" alt="The CUBE main window in dark mode"><figcaption><b>Main window (dark)</b>The same window with the dark theme.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-analyser-dark.webp" width="1600" height="520" loading="lazy" alt="The CUBE analyser window with its analysis tabs"><figcaption><b>Analyser</b>Live preview, full analysis, metrics, unbiased analytics, behaviour explorer, Group Predictor and paradigm results.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-adv-cube-light.webp" width="520" height="760" loading="lazy" alt="Advanced CUBE analysis parameters window"><figcaption><b>Advanced CUBE analysis parameters</b>Feature, UMAP, HDBSCAN, classifier and HMM settings with publication defaults pre-set.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-adv-dlc-dark.webp" width="540" height="720" loading="lazy" alt="Advanced DLC parameters window"><figcaption><b>Advanced DLC parameters</b>Model type, SuperAnimal settings and detection thresholds.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-env-paradigms-light.webp" width="580" height="660" loading="lazy" alt="Environments, objects and paradigms window"><figcaption><b>Environments, objects and paradigms</b>Opt-in arena context, kinematic directedness and region-aware splitting.</figcaption></figure>
+      <figure class="shot" data-t="gui"><img src="../assets/img/gui-settings-3d-dark.webp" width="560" height="720" loading="lazy" alt="3D DLC and Anipose settings window"><figcaption><b>3D DLC and Anipose settings</b>Calibration, folders, camera labels and triangulation options.</figcaption></figure>      <figure class="shot" data-t="oft umap"><img src="../assets/img/oft-umap-before-after.webp" width="1800" height="626" loading="lazy" alt="Open field UMAP: blind clusters, clusters with guided labels, and human labels"><figcaption><b>Open field: before and after naming</b>Blind CUBE clusters, CUBE with guided labels on held-out videos, and the human labels on the same embedding.</figcaption></figure>
+      <figure class="shot" data-t="epm umap"><img src="../assets/img/epm-umap-before-after.webp" width="1800" height="626" loading="lazy" alt="Elevated plus maze UMAP before and after guided labelling"><figcaption><b>Elevated plus maze: before and after naming</b>The same comparison for the elevated plus maze.</figcaption></figure>
+      <figure class="shot" data-t="oft posture"><img src="../assets/img/oft-hierarchy-postures.webp" width="1800" height="1168" loading="lazy" alt="Dendrogram of open field clusters with a posture sketch for each cluster"><figcaption><b>Open field: cluster hierarchy and postures</b>Each cluster's typical posture, arranged by similarity.</figcaption></figure>
+      <figure class="shot" data-t="epm posture"><img src="../assets/img/epm-hierarchy-postures.webp" width="1800" height="1059" loading="lazy" alt="Dendrogram of elevated plus maze clusters with posture sketches"><figcaption><b>Elevated plus maze: cluster hierarchy and postures</b>Posture sketches for each discovered cluster.</figcaption></figure>
+      <figure class="shot" data-t="oft sequence"><img src="../assets/img/oft-ethogram-grooming.webp" width="1800" height="709" loading="lazy" alt="One-minute open field ethogram comparing human labels with CUBE labels and blind clusters"><figcaption><b>Open field: ethogram of a grooming bout</b>Human labels, CUBE with labels (held-out video) and blind clusters over one minute.</figcaption></figure>
+      <figure class="shot" data-t="epm sequence"><img src="../assets/img/epm-ethogram-head-dip.webp" width="1800" height="709" loading="lazy" alt="Elevated plus maze ethogram around a head dip"><figcaption><b>Elevated plus maze: ethogram around a head dip</b>The same three-row comparison for a head-dip example.</figcaption></figure>
+      <figure class="shot" data-t="oft sequence"><img src="../assets/img/oft-sankey.webp" width="1500" height="833" loading="lazy" alt="Sankey diagram of behaviour sequences in the open field"><figcaption><b>Open field: behaviour sequences</b>Bar height shows state occupancy, ribbon width shows transition flow over the first five bouts.</figcaption></figure>
+      <figure class="shot" data-t="epm sequence"><img src="../assets/img/epm-sankey.webp" width="1500" height="833" loading="lazy" alt="Sankey diagram of behaviour sequences on the elevated plus maze"><figcaption><b>Elevated plus maze: behaviour sequences</b>Sequence flows between behavioural states.</figcaption></figure>
+      <figure class="shot" data-t="oft umap"><img src="../assets/img/oft-state-space.webp" width="1500" height="670" loading="lazy" alt="State-space projection of open field clusters"><figcaption><b>Open field: state-space projection</b>How behavioural states sit in a shared low-dimensional space.</figcaption></figure>
+      <figure class="shot" data-t="epm umap"><img src="../assets/img/epm-state-space.webp" width="1500" height="670" loading="lazy" alt="State-space projection of elevated plus maze clusters"><figcaption><b>Elevated plus maze: state-space projection</b>Behavioural states in a shared low-dimensional space.</figcaption></figure>
+      <figure class="shot" data-t="oft posture"><img src="../assets/img/oft-trajectories.webp" width="1624" height="1623" loading="lazy" alt="Aligned posture trajectories for open field clusters"><figcaption><b>Open field: aligned cluster trajectories</b>Typical body-point trajectories for each cluster.</figcaption></figure>
+      <figure class="shot" data-t="epm posture"><img src="../assets/img/epm-trajectories.webp" width="1627" height="1623" loading="lazy" alt="Aligned posture trajectories for elevated plus maze clusters"><figcaption><b>Elevated plus maze: aligned cluster trajectories</b>Typical body-point trajectories for each cluster.</figcaption></figure>
+    </div>
+    <p class="caption">All examples use the public open field and elevated plus maze data of Sturman et al. (2020), <em>Neuropsychopharmacology</em> 45:1942-1952.</p>
+  </div>
+</section>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged figure"><button type="button" aria-label="Close">&times;</button><img alt=""><p></p></div>
+
+</main>
+<section class="creator" aria-labelledby="creator-h">
+  <div class="container creator__inner">
+    <div class="creator__text">
+      <p class="eyebrow">About the developer</p>
+      <h2 id="creator-h">Developed by Param Valiathan</h2>
+      <p>CUBE was developed by Param Valiathan in the laboratory of Patrik Ernfors at Karolinska Institutet (<a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener" target="_blank">research group website</a>). Questions, bug reports and suggestions are welcome: open an issue on GitHub or get in touch on LinkedIn.</p>
+    </div>
+    <div class="creator__links">
+      <a class="btn btn--linkedin" href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Connect on LinkedIn
+      </a>
+      <a class="btn btn--ghost" href="https://github.com/param-valiathan/CUBE" rel="noopener" target="_blank">View the code on GitHub</a>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer__stripe" aria-hidden="true"></div>
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="brand" href="../"><img src="../assets/img/logo-mark.png" width="34" height="34" alt=""><span class="brand__word">CUBE</span></a>
+      <p>Comprehensive Unsupervised Behavioural Explorer. From video to behaviour, end to end.</p>
+    </div>
+    <nav class="footer__col" aria-label="Learn">
+      <h3>Learn</h3>
+      <a href="../about/">What is CUBE</a>
+      <a href="../get-started/">Get started</a>
+      <a href="../guide/">Pipeline guide</a>
+      <a href="../analyser/">Analyser</a>
+    </nav>
+    <nav class="footer__col" aria-label="Explore">
+      <h3>Explore</h3>
+      <a href="../guided-labelling/">Guided labelling</a>
+      <a href="../paradigms/">Behavioural paradigms</a>
+      <a href="../3d/">3D multi-camera</a>
+      <a href="../gallery/">Gallery</a>
+      <a href="../video/">Overview video</a>
+    </nav>
+    <nav class="footer__col" aria-label="Project">
+      <h3>Project</h3>
+      <a href="https://github.com/param-valiathan/CUBE" rel="noopener">GitHub repository</a>
+      <a href="../cite/">Cite and credits</a>
+      <a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener">Research group (KI)</a>
+      <a href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener">LinkedIn</a>
+    </nav>
+  </div>
+  <div class="container footer__legal">
+    <p>&copy; 2026 Param Valiathan. CUBE is research software; if you use it, please cite it (see Cite and credits). A preprint is in preparation.</p>
+    <p>Built on DeepLabCut and the B-SOiD method. Open field and elevated plus maze examples use the public dataset of Sturman et al. (2020).</p>
+  </div>
+</footer>
+
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

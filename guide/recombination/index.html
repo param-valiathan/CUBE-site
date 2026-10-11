@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recombination guide | CUBE user guide</title>
+<meta name="description" content="Merge and re-cluster behaviours after the fact: the three methods, their parameters and when to use each.">
+<link rel="canonical" href="https://param-valiathan.github.io/CUBE-site/guide/recombination/">
+<meta name="theme-color" content="#0B2A4A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CUBE">
+<meta property="og:title" content="Recombination guide | CUBE user guide">
+<meta property="og:description" content="Merge and re-cluster behaviours after the fact: the three methods, their parameters and when to use each.">
+<meta property="og:url" content="https://param-valiathan.github.io/CUBE-site/guide/recombination/">
+<meta property="og:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Recombination guide | CUBE user guide">
+<meta name="twitter:description" content="Merge and re-cluster behaviours after the fact: the three methods, their parameters and when to use each.">
+<meta name="twitter:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("cube-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+  document.documentElement.classList.add("js");
+})();
+</script>
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="container nav__inner">
+    <a class="brand" href="../../" aria-label="CUBE home">
+      <img src="../../assets/img/logo-mark.png" width="38" height="38" alt="">
+      <span class="brand__word">CUBE</span>
+    </a>
+    <nav class="nav__links" id="nav-links" aria-label="Main">
+      <a class="" href="../../about/">About</a>
+      <a class="" href="../../get-started/">Get started</a>
+      <a class="is-active" href="../../guide/">Guide</a>
+      <a class="" href="../../analyser/">Analyser</a>
+      <a class="" href="../../gallery/">Gallery</a>
+      <a class="" href="../../video/">Video</a>
+      <a class="" href="../../cite/">Cite</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost nav__gh" href="https://github.com/param-valiathan/CUBE" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+      <button class="icon-btn nav__burger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+
+<main id="main">
+<section class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="../../">Home</a> / <a href="../../guide/">User guide</a> / Recombination guide</p>
+    <h1>Recombination guide</h1>
+    <p class="lead">Merge and re-cluster behaviours after the fact: the three methods, their parameters and when to use each.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container docs">
+    <aside class="docs__side" aria-label="Documentation navigation">
+<label class="sr-only" for="doc-search">Search the guide</label><input class="search" id="doc-search" type="search" placeholder="Search the guide" autocomplete="off" data-index="../../assets/search-index.json" data-root="../../"><div class="search-results" id="search-results" hidden></div><h3>User guide</h3><div class="docs__nav">
+<h3 class="grp">Start</h3>
+<a href="../../guide/">CUBE user guide</a>
+<a href="../../guide/quick-start/">Quick start: your first analysis</a>
+<a href="../../guide/installation/">Installation and launching</a>
+<h3 class="grp">The pipeline</h3>
+<a href="../../guide/step-1-dlc/">Step 1: DLC inference</a>
+<a href="../../guide/step-2-preprocessing/">Step 2: pre-processing</a>
+<a href="../../guide/step-3-discover/">Step 3: features, UMAP and clustering</a>
+<a href="../../guide/step-4-annotate/">Step 4: cluster annotation</a>
+<a href="../../guide/step-5-analyse/">Step 5: behavioural analysis</a>
+<a href="../../guide/output-files/">Understanding the output files</a>
+<h3 class="grp">Analyse</h3>
+<a href="../../analyser/">The behavioural analyser</a>
+<a class="is-on" href="../../guide/recombination/">Recombination guide</a>
+<a href="../../paradigms/">Behavioural paradigms and arena context</a>
+<a href="../../guided-labelling/">Guided labelling</a>
+<h3 class="grp">Reference</h3>
+<a href="../../guide/hmm-smoothing/">HMM smoothing</a>
+<a href="../../guide/advanced-settings/">Advanced settings</a>
+<a href="../../guide/autosave-and-compatibility/">Autosave, loading and compatibility</a>
+<h3 class="grp">Help</h3>
+<a href="../../guide/troubleshooting/">Troubleshooting</a>
+<a href="../../3d/">3D multi-camera mode</a>
+</div>
+<h3>On this page</h3><a class="" href="#the-three-methods">The three methods</a><a class="" href="#why-a-pose-distance-cap-exists">Why a pose-distance cap exists</a><a class="" href="#parameters">Parameters</a><a class="" href="#reading-the-outputs">Reading the outputs</a><a class="" href="#which-method-to-use">Which method to use</a>
+    </aside>
+    <article class="prose">
+<p><strong>What it is for:</strong> HDBSCAN often splits one real behaviour into two or three clusters because of small pose differences. Recombination takes the N raw clusters down to a smaller set that matches distinguishable behaviours. The Unbiased Analytics tab offers three ways to do this. They answer different questions.</p>
+<h2 id="the-three-methods">The three methods<a class="anchor" href="#the-three-methods" aria-label="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>View</th>
+<th>What decides a merge</th>
+<th>Stops at</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual k-sweep</strong></td>
+<td>Recombination</td>
+<td>You pick the number of groups, k</td>
+<td>Exactly k groups</td>
+<td>Seeing what forcing 3, 5 or 8 groups looks like, side by side</td>
+</tr>
+<tr>
+<td><strong>Recombination with pose-distance cap</strong></td>
+<td>Recombination</td>
+<td>The same, but a proposed group is rejected (split back into its raw clusters) if any pair inside it is too far apart in pose space</td>
+<td>k groups, minus any rejected merges</td>
+<td>Checking that a chosen k merges clusters that look alike, not just clusters whose usage changes together</td>
+</tr>
+<tr>
+<td><strong>Guided Merge</strong></td>
+<td>Guided Merge</td>
+<td>The algorithm merges the closest pair by usage pattern, but only if the pair is also close in pose space and clearly better than the next-best rejected option</td>
+<td>Automatically, when no further merge is justified</td>
+<td>Not having to choose k, and having a reproducible, defensible starting point for merging</td>
+</tr>
+</tbody>
+</table>
+<p>All three start from the same distance between clusters: 70% correlation of each cluster's usage pattern across your experimental groups plus 30% cosine similarity of the clusters' outgoing transition profiles. What differs is whether a second, independent signal, pose similarity, can veto a merge.</p>
+<h2 id="why-a-pose-distance-cap-exists">Why a pose-distance cap exists<a class="anchor" href="#why-a-pose-distance-cap-exists" aria-label="Link to this section">#</a></h2>
+<p>The blended distance only looks at how a cluster's usage changes between groups and how it transitions to other clusters. Two clusters can match on both for reasons unrelated to being the same behaviour, such as a shared arousal state or a coincidence in a small dataset. The pose-distance cap adds an independent check: it measures how different the clusters' movement and posture really are, using the same features UMAP and HDBSCAN were trained on, and only lets a merge through when the clusters are close on <strong>both</strong> criteria.</p>
+<p><strong>Requirement.</strong> The cap, Guided Merge and the Cluster Hierarchy view need <code>model/cluster_feature_centroids.npz</code>, which Step 3 saves automatically. Runs from before this file existed do not have it; rerun Step 3 to create it (Steps 4 and 5 do not need to be redone). Until then the cap control is greyed out and the views explain why.</p>
+<p><strong>Backfill pose data (approximate).</strong> A faster alternative for old runs: it builds pseudo-centroids from the saved embedding instead of true feature-space centroids, so it needs no raw keypoint files and runs instantly. It is a lower-fidelity approximation, because distances between clusters in a UMAP embedding are only locally meaningful. Everything built from it is marked <strong>APPROXIMATE</strong>, and the button never overwrites a real <code>cluster_feature_centroids.npz</code>. Use it for a quick look and rerun Step 3 for results you will publish.</p>
+<h2 id="parameters">Parameters<a class="anchor" href="#parameters" aria-label="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Where</th>
+<th>Default</th>
+<th>What it does</th>
+<th>What changing it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>k to save</strong> / compare k values</td>
+<td>Recombination</td>
+<td>5 / 3,5,8</td>
+<td>How many merged groups the manual sweep makes</td>
+<td>Lower k lumps more and is easier to read but may merge distinct behaviours; higher k stays closer to the raw clustering</td>
+</tr>
+<tr>
+<td><strong>Pose-distance cap (percentile)</strong></td>
+<td>Recombination</td>
+<td>100 (off)</td>
+<td>Only clusters within this percentile of the closest pose distances may merge</td>
+<td>Lower is stricter. Values under about 10 can reject almost everything, which suggests k should be lower before you merge</td>
+</tr>
+<tr>
+<td><strong>Guided Merge cap %</strong></td>
+<td>Guided Merge</td>
+<td>50 (median)</td>
+<td>The ceiling of pose distance Guided Merge may consider at all</td>
+<td>Lower is more conservative. Values well above 50 to 60 remove the pose constraint</td>
+</tr>
+<tr>
+<td><strong>Guided Merge min gap</strong></td>
+<td>Guided Merge</td>
+<td>0.15</td>
+<td>The best remaining merge must be at least this much closer (as a fraction of its own distance) than the closest pair that pose distance already ruled out</td>
+<td>Lower accepts more borderline merges (fewer, larger groups); higher stops earlier</td>
+</tr>
+<tr>
+<td><strong>Save source</strong></td>
+<td>Save Reclustered Groups</td>
+<td>Manual (k-sweep)</td>
+<td>Whether <em>Save as Preset</em> and <em>Push to Group Editor</em> export the k-sweep groups or the Guided Merge groups</td>
+<td>Defaults to the view you are looking at</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reading-the-outputs">Reading the outputs<a class="anchor" href="#reading-the-outputs" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Recombination title.</strong> When the cap is active it reports how many proposed merges were rejected at each k (for example &quot;2 of 5 proposed merges rejected&quot;). If many are rejected, your k probably lumps clusters that do not look alike: try a lower k, or keep the smaller groups.</li>
+<li><strong>Guided Merge labels.</strong> Each merged group (<code>RG-1</code>, <code>RG-2</code>, ...) is labelled with the raw cluster ids inside it.</li>
+<li><strong>Guided Merge table.</strong> One row per accepted merge, with the pair, their blended distance, pose distance and percentile, usage correlation and transition similarity. A merge with a high pose-distance percentile and only a moderate correlation deserves a second look before you rely on it.</li>
+<li><strong>Cophenetic correlation</strong> (bottom of the table) is a number between -1 and 1 that says how faithfully the dendrogram represents the distances. Below roughly 0.7 to 0.8, be sceptical of any cut of the tree.</li>
+</ul>
+<h2 id="which-method-to-use">Which method to use<a class="anchor" href="#which-method-to-use" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>A quick summary plot:</strong> manual k-sweep with the cap off. Pick a k that gives a readable number of groups (5 to 8 is usually legible).</li>
+<li><strong>A write-up that has to justify the merges:</strong> Guided Merge with the defaults, and cite the table's pose-distance percentile and correlation for each merge.</li>
+<li><strong>Someone doubts a merge you made by hand:</strong> open Recombination at your k, set a strict cap (20 to 30) and see whether the merge survives. Compare with the Cluster Hierarchy view: clusters on clearly distant branches are a real reason to reconsider.</li>
+<li><strong>Guided Merge merges nothing, or everything into two groups:</strong> if nothing merges, raise the cap % first, then lower the min gap. If it merges too much, lower the cap % first, then raise the min gap.</li>
+<li><strong>Controls are greyed out:</strong> the run predates <code>cluster_feature_centroids.npz</code>; rerun Step 3.</li>
+</ul>
+<hr />
+
+      <nav class="pn-row" aria-label="Previous and next"><a class="pn pn--prev" href="../../analyser/"><span>Previous</span>The behavioural analyser</a><a class="pn pn--next" href="../../paradigms/"><span>Next</span>Behavioural paradigms and arena context</a></nav>
+    </article>
+  </div>
+</section>
+
+</main>
+<section class="creator" aria-labelledby="creator-h">
+  <div class="container creator__inner">
+    <div class="creator__text">
+      <p class="eyebrow">About the developer</p>
+      <h2 id="creator-h">Developed by Param Valiathan</h2>
+      <p>CUBE was developed by Param Valiathan in the laboratory of Patrik Ernfors at Karolinska Institutet (<a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener" target="_blank">research group website</a>). Questions, bug reports and suggestions are welcome: open an issue on GitHub or get in touch on LinkedIn.</p>
+    </div>
+    <div class="creator__links">
+      <a class="btn btn--linkedin" href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Connect on LinkedIn
+      </a>
+      <a class="btn btn--ghost" href="https://github.com/param-valiathan/CUBE" rel="noopener" target="_blank">View the code on GitHub</a>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer__stripe" aria-hidden="true"></div>
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="brand" href="../../"><img src="../../assets/img/logo-mark.png" width="34" height="34" alt=""><span class="brand__word">CUBE</span></a>
+      <p>Comprehensive Unsupervised Behavioural Explorer. From video to behaviour, end to end.</p>
+    </div>
+    <nav class="footer__col" aria-label="Learn">
+      <h3>Learn</h3>
+      <a href="../../about/">What is CUBE</a>
+      <a href="../../get-started/">Get started</a>
+      <a href="../../guide/">Pipeline guide</a>
+      <a href="../../analyser/">Analyser</a>
+    </nav>
+    <nav class="footer__col" aria-label="Explore">
+      <h3>Explore</h3>
+      <a href="../../guided-labelling/">Guided labelling</a>
+      <a href="../../paradigms/">Behavioural paradigms</a>
+      <a href="../../3d/">3D multi-camera</a>
+      <a href="../../gallery/">Gallery</a>
+      <a href="../../video/">Overview video</a>
+    </nav>
+    <nav class="footer__col" aria-label="Project">
+      <h3>Project</h3>
+      <a href="https://github.com/param-valiathan/CUBE" rel="noopener">GitHub repository</a>
+      <a href="../../cite/">Cite and credits</a>
+      <a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener">Research group (KI)</a>
+      <a href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener">LinkedIn</a>
+    </nav>
+  </div>
+  <div class="container footer__legal">
+    <p>&copy; 2026 Param Valiathan. CUBE is research software; if you use it, please cite it (see Cite and credits). A preprint is in preparation.</p>
+    <p>Built on DeepLabCut and the B-SOiD method. Open field and elevated plus maze examples use the public dataset of Sturman et al. (2020).</p>
+  </div>
+</footer>
+
+
+<script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D multi-camera mode | CUBE user guide</title>
+<meta name="description" content="Set up CUBE for calibrated multi-camera 3D tracking: prerequisites, the four phases, settings, outputs and calibration.">
+<link rel="canonical" href="https://param-valiathan.github.io/CUBE-site/3d/">
+<meta name="theme-color" content="#0B2A4A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CUBE">
+<meta property="og:title" content="3D multi-camera mode | CUBE user guide">
+<meta property="og:description" content="Set up CUBE for calibrated multi-camera 3D tracking: prerequisites, the four phases, settings, outputs and calibration.">
+<meta property="og:url" content="https://param-valiathan.github.io/CUBE-site/3d/">
+<meta property="og:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="3D multi-camera mode | CUBE user guide">
+<meta name="twitter:description" content="Set up CUBE for calibrated multi-camera 3D tracking: prerequisites, the four phases, settings, outputs and calibration.">
+<meta name="twitter:image" content="https://param-valiathan.github.io/CUBE-site/assets/img/og-card.png">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("cube-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+  document.documentElement.classList.add("js");
+})();
+</script>
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="container nav__inner">
+    <a class="brand" href="../" aria-label="CUBE home">
+      <img src="../assets/img/logo-mark.png" width="38" height="38" alt="">
+      <span class="brand__word">CUBE</span>
+    </a>
+    <nav class="nav__links" id="nav-links" aria-label="Main">
+      <a class="" href="../about/">About</a>
+      <a class="" href="../get-started/">Get started</a>
+      <a class="is-active" href="../guide/">Guide</a>
+      <a class="" href="../analyser/">Analyser</a>
+      <a class="" href="../gallery/">Gallery</a>
+      <a class="" href="../video/">Video</a>
+      <a class="" href="../cite/">Cite</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost nav__gh" href="https://github.com/param-valiathan/CUBE" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+      <button class="icon-btn nav__burger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+
+<main id="main">
+<section class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="../">Home</a> / <a href="../guide/">User guide</a> / 3D multi-camera mode</p>
+    <h1>3D multi-camera mode</h1>
+    <p class="lead">Set up CUBE for calibrated multi-camera 3D tracking: prerequisites, the four phases, settings, outputs and calibration.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container docs">
+    <aside class="docs__side" aria-label="Documentation navigation">
+<label class="sr-only" for="doc-search">Search the guide</label><input class="search" id="doc-search" type="search" placeholder="Search the guide" autocomplete="off" data-index="../assets/search-index.json" data-root="../"><div class="search-results" id="search-results" hidden></div><h3>User guide</h3><div class="docs__nav">
+<h3 class="grp">Start</h3>
+<a href="../guide/">CUBE user guide</a>
+<a href="../guide/quick-start/">Quick start: your first analysis</a>
+<a href="../guide/installation/">Installation and launching</a>
+<h3 class="grp">The pipeline</h3>
+<a href="../guide/step-1-dlc/">Step 1: DLC inference</a>
+<a href="../guide/step-2-preprocessing/">Step 2: pre-processing</a>
+<a href="../guide/step-3-discover/">Step 3: features, UMAP and clustering</a>
+<a href="../guide/step-4-annotate/">Step 4: cluster annotation</a>
+<a href="../guide/step-5-analyse/">Step 5: behavioural analysis</a>
+<a href="../guide/output-files/">Understanding the output files</a>
+<h3 class="grp">Analyse</h3>
+<a href="../analyser/">The behavioural analyser</a>
+<a href="../guide/recombination/">Recombination guide</a>
+<a href="../paradigms/">Behavioural paradigms and arena context</a>
+<a href="../guided-labelling/">Guided labelling</a>
+<h3 class="grp">Reference</h3>
+<a href="../guide/hmm-smoothing/">HMM smoothing</a>
+<a href="../guide/advanced-settings/">Advanced settings</a>
+<a href="../guide/autosave-and-compatibility/">Autosave, loading and compatibility</a>
+<h3 class="grp">Help</h3>
+<a href="../guide/troubleshooting/">Troubleshooting</a>
+<a class="is-on" href="../3d/">3D multi-camera mode</a>
+</div>
+<h3>On this page</h3><a class="" href="#overview">Overview</a><a class="" href="#enabling-3d-mode">Enabling 3D Mode</a><a class="" href="#the-four-phases">The Four Phases</a><a class="sub" href="#phase-1-session-discovery-and-calibration">Phase 1 — Session discovery and calibration</a><a class="sub" href="#phase-2-per-camera-adaptation-and-tracking">Phase 2 — Per-camera adaptation and tracking</a><a class="sub" href="#phase-3-triangulation-and-videos">Phase 3 — Triangulation and videos</a><a class="sub" href="#phase-4-passing-results-on-to-steps-2-to-5">Phase 4 — Passing results on to Steps 2 to 5</a><a class="" href="#3d-settings-reference">3D Settings Reference</a><a class="sub" href="#3d-mode">3D Mode</a><a class="sub" href="#calibration-auto-detected-recommended">Calibration (auto-detected, recommended)</a><a class="sub" href="#folders-and-homography-fallback">Folders and homography fallback</a><a class="sub" href="#camera-configuration">Camera Configuration</a><a class="sub" href="#triangulation-options">Triangulation Options</a><a class="sub" href="#calibration-refinement">Calibration Refinement</a><a class="sub" href="#post-processing-and-visualization">Post-processing and Visualization</a><a class="sub" href="#other-sections-collapsed-by-default">Other sections (collapsed by default)</a><a class="" href="#output-files">Output Files</a><a class="" href="#how-downstream-steps-differ-in-3d-mode">How Downstream Steps Differ in 3D Mode</a><a class="" href="#camera-calibration">Camera Calibration</a><a class="" href="#troubleshooting-3d">Troubleshooting (3D)</a>
+    </aside>
+    <article class="prose">
+<aside class="glance" aria-label="At a glance"><div><b>What it does</b><span>Track the animal with several cameras and triangulate one 3D skeleton per session.</span></div><div><b>You need</b><span>Step 0 videos, a calibration recording, aniposelib and a GPU.</span></div><div><b>You get</b><span>A 3D keypoint file and a quad video per session.</span></div><div><b>Time</b><span>Setup takes care; the run is unattended</span></div></aside><h2 id="overview">Overview<a class="anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p><strong>You need</strong></p>
+<ul>
+<li><strong>Step 0 output:</strong> corrected, synchronised videos from <code>bonsai_video_corrector.py</code>.</li>
+<li><strong>A calibration recording:</strong> a Charuco board recorded by all cameras, run through the same Step 0 and with &quot;calibration&quot; in its session name. CUBE finds it and creates <code>calibration.toml</code> automatically. A <code>calibration.toml</code> made by hand still works as a backup (see <a href="#camera-calibration">Camera Calibration</a>).</li>
+<li><strong>Software:</strong> <code>aniposelib</code> and <code>imageio-ffmpeg</code> installed in the <code>CUBE</code> environment, plus DeepLabCut as for 2D.</li>
+<li><strong>A CUDA GPU:</strong> strongly recommended; CPU inference works but is very slow.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Step 0 files</td>
+<td><code>{cam_label}_{session_id}_corrected.mp4</code>, <code>*_corrected_timestamps.csv</code> and <code>{session_id}_correction_report.json</code> for each session</td>
+</tr>
+<tr>
+<td>Calibration recording</td>
+<td>A Charuco board recording whose session name contains &quot;calibration&quot;, under the same source folders</td>
+</tr>
+<tr>
+<td><code>aniposelib</code></td>
+<td><code>pip install aniposelib</code> inside the <code>CUBE</code> environment</td>
+</tr>
+<tr>
+<td>DeepLabCut</td>
+<td>In the same environment, as for 2D Step 1</td>
+</tr>
+</tbody>
+</table>
+<p>Group assignments, autosave, notifications, pre-processing, the Video Explorer and the Analyser work without changes.</p>
+<p><strong>Rigs with up to three cameras and no calibration.</strong> If no calibration can be found and the rig has three or fewer cameras, Step 1b falls back to a floor-plane <strong>homography fusion</strong> of the per-camera 2D keypoints instead of stopping (see the next section and the <em>Folders</em> settings). A calibrated rig always triangulates in full 3D, whatever the number of cameras.</p>
+<hr />
+<h2 id="enabling-3d-mode">Enabling 3D Mode<a class="anchor" href="#enabling-3d-mode" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Add your Step 0 output folders to the main panel (the same folder list all steps use). Include the folder that holds your calibration recording's output (or its <code>_calibration/</code> subfolder). Assign experimental groups if you need them; the group labels carry through to all session output.</li>
+<li>Click the <strong>3D DLC + Anipose</strong> card (Step 1b, the alternative to 1a).</li>
+<li>Click <strong>3D DLC Settings</strong>.</li>
+<li>Confirm that <strong>Auto-detect &amp; auto-generate calibration.toml</strong> is ticked (the default) and enter your Charuco board's physical measurements under <em>Charuco board geometry</em>. Only fill in the <em>Calibration folder</em> field to supply a hand-made <code>calibration.toml</code> as a backup.</li>
+<li>Check the camera labels and any triangulation options (see <a href="#3d-settings-reference">3D Settings Reference</a>).</li>
+<li>Click <strong>Apply &amp; Close</strong>, then <strong>Run Step 1b</strong>. The pipeline runs unattended and sends notifications at its main milestones. Its first task is to resolve the calibration (and to calibrate automatically when needed).</li>
+</ol>
+<p>Clicking the Step 1b run button also switches 3D mode on; there is no separate enable checkbox in the settings.</p>
+<figure class="doc-fig fig-narrow"><img src="../assets/img/gui-settings-3d-light.webp" width="560" height="720" loading="lazy" alt="The 3D DLC and Anipose settings window" class="theme-img theme-img--light"><img src="../assets/img/gui-settings-3d-dark.webp" width="560" height="720" loading="lazy" alt="The 3D DLC and Anipose settings window" class="theme-img theme-img--dark"><figcaption>The 3D DLC + Anipose settings window: calibration, folders, camera labels and triangulation options.</figcaption></figure>
+
+<hr />
+<h2 id="the-four-phases">The Four Phases<a class="anchor" href="#the-four-phases" aria-label="Link to this section">#</a></h2>
+<h3 id="phase-1-session-discovery-and-calibration">Phase 1 — Session discovery and calibration<a class="anchor" href="#phase-1-session-discovery-and-calibration" aria-label="Link to this section">#</a></h3>
+<p>CUBE scans every source folder for finished Step 0 sessions. A session is a set of <code>{cam_label}_{session_id}_corrected.mp4</code> files that share one <code>session_id</code>.</p>
+<ul>
+<li>A session is accepted only if at least 2 camera videos exist <strong>and</strong> every camera in the correction report has <code>&quot;status&quot;: &quot;done&quot;</code>.</li>
+<li>Sessions are processed in order of <code>session_id</code>, which is chronological because it is a date and time.</li>
+<li>On a rerun, CUBE uses the source folders saved at the end of the first run, so you do not have to add them again.</li>
+<li>If the same <code>session_id</code> appears in several folders, the first one wins.</li>
+<li>CUBE then resolves the calibration (see <a href="#camera-calibration">Camera Calibration</a>).</li>
+</ul>
+<h3 id="phase-2-per-camera-adaptation-and-tracking">Phase 2 — Per-camera adaptation and tracking<a class="anchor" href="#phase-2-per-camera-adaptation-and-tracking" aria-label="Link to this section">#</a></h3>
+<p>For each camera label (<code>cam0</code> to <code>cam3</code> by default), CUBE:</p>
+<ol>
+<li><strong>Crops</strong> the camera's frames if you set a crop region for it.</li>
+<li><strong>Picks a representative video:</strong> the one with the fewest duplicated frames, which shows the most genuine animal movement.</li>
+<li><strong>Adapts the SuperAnimal Quadruped model</strong> to your recording conditions using that video. The adapted weights are cached and reused on later runs for the same camera.</li>
+<li><strong>Tracks every corrected video of that camera.</strong> On a GPU out-of-memory error the batch size is halved and the video retried, down to a batch size of 1; if it still fails, that video is skipped and the error is logged.</li>
+<li><strong>Masks fill frames.</strong> Frames that Step 0 marked as duplicated fill frames get a likelihood of 0 for every body point, so they cannot contribute confident detections to triangulation.</li>
+<li><strong>Frees GPU memory</strong> before the next camera.</li>
+</ol>
+<p>After tracking, the calibration can be <strong>refined</strong> from the tracked keypoints (see <em>Calibration Refinement</em> below). This is skipped in homography fallback mode.</p>
+<h3 id="phase-3-triangulation-and-videos">Phase 3 — Triangulation and videos<a class="anchor" href="#phase-3-triangulation-and-videos" aria-label="Link to this section">#</a></h3>
+<p>Sessions are triangulated in parallel (up to 4 at once). For each session:</p>
+<ol>
+<li><strong>Body points.</strong> Only body points present in all camera files are triangulated. If a camera lacks one, a warning is logged and that camera still contributes the points it has.</li>
+<li><strong>Triangulation.</strong> A body point is triangulated from the cameras that see it with a likelihood above the pre-triangulation gate (default 0.4). A set of anatomical and temporal checks then removes or repairs implausible points: bone-length limits, a limit on frame-to-frame jumps, geometric priors for weakly tracked points (ears, hips, knees, nose) and a recovery step for frames seen by only one camera. RANSAC and confidence-weighted triangulation exist as options but are off by default.</li>
+<li><strong>Confidence.</strong> The per-camera likelihoods are combined into one value per point: <code>min</code> (default, a point is only confident if <strong>all</strong> cameras agree, recommended for behaviour classification), <code>mean</code>, or <code>max</code> (a point is confident if <strong>any</strong> camera is).</li>
+<li><strong>Gate.</strong> If <em>Point confidence threshold</em> is above 0, points below it have their likelihood set to zero and are treated as missing in Step 2.</li>
+<li><strong>3D file.</strong> The result is written to <code>{session_id}_3d_filtered.h5</code> with the columns <code>x</code>, <code>y</code>, <code>z</code> and <code>likelihood</code> for every body point. Writing is atomic, and a session whose file already exists is skipped (so reruns are safe). A file produced by the homography fallback has no <code>z</code> column; if a real calibration becomes available later, it is replaced by a triangulated one, but a triangulated file is never overwritten by a fusion result.</li>
+<li><strong>Quad video.</strong> <code>{session_id}_quad.mp4</code> is a 2×2 grid of the corrected camera videos (cam0 top left, cam1 top right, cam2 bottom left, cam3 bottom right). All streams are scaled to the most common resolution, and encoding uses the GPU encoder when available and the CPU otherwise.</li>
+<li><strong>Quality-control files</strong> (on by default): an optional 3D skeleton video, a 2D keypoint overlay on the quad video, a body-point colour legend, a per-camera likelihood plot, and 3D-to-2D reprojection videos in which a dot is the raw 2D detection and a ring is the 3D point projected back, so the gap shows the reprojection error.</li>
+</ol>
+<p>In homography fallback mode, Phase 3 first asks you to calibrate each camera pair that has no cached homography (a window opens to click matching floor points, or CUBE calibrates automatically from the tracked poses when <em>Auto-calibrate homography from tracked poses</em> is on). The fused 2D file is written to the same <code>{session_id}_3d_filtered.h5</code> name. The skeleton video is skipped because it needs z coordinates.</p>
+<h3 id="phase-4-passing-results-on-to-steps-2-to-5">Phase 4 — Passing results on to Steps 2 to 5<a class="anchor" href="#phase-4-passing-results-on-to-steps-2-to-5" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>The original source folders are saved, so reruns do not need them added again.</li>
+<li>The list of video folders is replaced by the session output folders, so Steps 2 to 5 find every session without any action from you.</li>
+<li>Group labels are carried over from each source folder to its session folder.</li>
+<li>Pre-processing (Step 2) runs for each session and writes its files, including the keypoint file with the z column kept and a copy of the quad video for example clips, under <code>CUBE 2 - Preclustering files</code>.</li>
+</ol>
+<p>If <strong>Auto-run analysis</strong> is on, the pipeline continues straight into Steps 2 and 3.</p>
+<hr />
+<h2 id="3d-settings-reference">3D Settings Reference<a class="anchor" href="#3d-settings-reference" aria-label="Link to this section">#</a></h2>
+<p>Open <strong>3D DLC Settings</strong> from the Step 1b card. Many advanced sections are collapsed by default. Defaults are shown as in the window.</p>
+<h3 id="3d-mode">3D Mode<a class="anchor" href="#3d-mode" aria-label="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auto-launch Step 0 for unprocessed raw recordings</td>
+<td>On</td>
+<td>Runs Step 0 first for raw recordings that have not been corrected yet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="calibration-auto-detected-recommended">Calibration (auto-detected, recommended)<a class="anchor" href="#calibration-auto-detected-recommended" aria-label="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auto-detect &amp; auto-generate calibration.toml</td>
+<td>On</td>
+<td>Looks for a folder named &quot;calibration&quot; with at least 2 <code>camN</code> videos (Step 0's <code>_calibration/</code> output works) and calibrates it with the board settings below</td>
+</tr>
+<tr>
+<td>Charuco board — squares (X)</td>
+<td>8</td>
+<td>Squares across the width. Must match the printed board</td>
+</tr>
+<tr>
+<td>Charuco board — squares (Y)</td>
+<td>6</td>
+<td>Squares across the height</td>
+</tr>
+<tr>
+<td>Square length (mm)</td>
+<td>14.88</td>
+<td>Side of one square, measured on the board</td>
+</tr>
+<tr>
+<td>Marker length (mm)</td>
+<td>11.16</td>
+<td>Side of one ArUco marker, measured on the board</td>
+</tr>
+<tr>
+<td>ArUco marker bits</td>
+<td>4</td>
+<td>Marker bit size</td>
+</tr>
+<tr>
+<td>ArUco dictionary size</td>
+<td>50</td>
+<td>Number of markers in the dictionary</td>
+</tr>
+<tr>
+<td>Pooled/low-floor mode</td>
+<td>Off</td>
+<td>For small or partial boards that never fill the frame enough for the usual corner requirement</td>
+</tr>
+<tr>
+<td>Shared intrinsics</td>
+<td>On</td>
+<td>Uses one camera's optics for all cameras. Only for identical cameras</td>
+</tr>
+<tr>
+<td>Shared intrinsics — reference camera</td>
+<td>blank (auto)</td>
+<td>Which camera supplies the optics</td>
+</tr>
+</tbody>
+</table>
+<p>The board values above are the defaults of the app. Measure your own board and change them to match it.</p>
+<h3 id="folders-and-homography-fallback">Folders and homography fallback<a class="anchor" href="#folders-and-homography-fallback" aria-label="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calibration folder — backup only</td>
+<td>empty</td>
+<td>Folder with a hand-made <code>calibration.toml</code>. Used only if auto-calibration is off, finds nothing or fails</td>
+</tr>
+<tr>
+<td>Fall back to homography fusion for uncalibrated rigs of up to 3 cameras</td>
+<td>On</td>
+<td>Used only when no <code>calibration.toml</code> can be resolved. Switch it off to make an uncalibrated rig stop with a &quot;calibration missing&quot; error</td>
+</tr>
+<tr>
+<td>Auto-calibrate homography from tracked poses</td>
+<td>On</td>
+<td>Calibrates the homography from the tracked keypoints without clicking. Falls back to the manual clicking calibrator if the data are too sparse or noisy</td>
+</tr>
+</tbody>
+</table>
+<p>Output goes inside each source folder, or into the global output folder if you set one in the main window.</p>
+<h3 id="camera-configuration">Camera Configuration<a class="anchor" href="#camera-configuration" aria-label="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera labels</td>
+<td><code>cam0,cam1,cam2,cam3</code></td>
+<td>The label prefixes of your Step 0 file names. Change them if you used other camera names in Bonsai</td>
+</tr>
+</tbody>
+</table>
+<h3 id="triangulation-options">Triangulation Options<a class="anchor" href="#triangulation-options" aria-label="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confidence aggregation across cameras</td>
+<td>min</td>
+<td><code>min</code> (safest), <code>mean</code> or <code>max</code> (most permissive)</td>
+</tr>
+<tr>
+<td>RANSAC triangulation</td>
+<td>Off</td>
+<td>Rejects camera views with large reprojection error. Off after testing found plain triangulation better</td>
+</tr>
+<tr>
+<td>Confidence-weighted triangulation (LOST)</td>
+<td>Off</td>
+<td>Weights each camera by its confidence. Takes precedence over RANSAC when on</td>
+</tr>
+<tr>
+<td>Bone-length-constrained refinement</td>
+<td>On</td>
+<td>Refines the points so bone lengths stay consistent</td>
+</tr>
+<tr>
+<td>Two-link geometric prior for weak ear, hip and knee points</td>
+<td>On</td>
+<td>Estimates weakly tracked points from their neighbours</td>
+</tr>
+<tr>
+<td>RANSAC reprojection threshold (px)</td>
+<td>0.5</td>
+<td>Only used when RANSAC is on</td>
+</tr>
+<tr>
+<td>Point confidence threshold</td>
+<td>0 (off)</td>
+<td>Likelihood set to zero below this value after triangulation. A value of 0.3 to 0.5 excludes poor points from the features</td>
+</tr>
+<tr>
+<td>Pre-triangulation likelihood gate</td>
+<td>0.4</td>
+<td>A camera view whose 2D likelihood is below this is left out of triangulation. 0 turns it off</td>
+</tr>
+<tr>
+<td>Temporal median filter (frames)</td>
+<td>3</td>
+<td>Removes single-frame jitter per body point and axis. Must be odd; 0 turns it off</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Geometric and temporal recovery gates</strong> (a collapsed sub-section; all on unless stated):</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hard anatomical bone-length gate</td>
+<td>On</td>
+</tr>
+<tr>
+<td>Torso-hub bone-length gate (neck-back)</td>
+<td>On</td>
+</tr>
+<tr>
+<td>Frame-to-frame displacement clamp (20 mm + 2400/fps, rolling baseline)</td>
+<td>On</td>
+</tr>
+<tr>
+<td>Nose multi-anchor geometric prior (eyes and jaw)</td>
+<td>On</td>
+</tr>
+<tr>
+<td>Ray and temporal fallback for frames seen by one camera</td>
+<td>On (max gap 1.5 s, max disagreement 60 mm)</td>
+</tr>
+<tr>
+<td>Face rigid-cluster recovery (upper jaw)</td>
+<td>On</td>
+</tr>
+<tr>
+<td>Weak-tier extra recovery (jaw, thigh, knee)</td>
+<td>Off (max gap 3.0 s, max disagreement 90 mm)</td>
+</tr>
+<tr>
+<td>Hind-paw floor pin</td>
+<td>On (longest continuous lift 10 s, simultaneous dual lift 0.2 s)</td>
+</tr>
+<tr>
+<td>Exclude turned-away camera on disagreement (nose)</td>
+<td>Off (angle threshold 135°)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="calibration-refinement">Calibration Refinement<a class="anchor" href="#calibration-refinement" aria-label="Link to this section">#</a></h3>
+<p>Board calibration can leave several pixels of reprojection error. These settings refine <code>calibration.toml</code> using real DLC keypoints as extra correspondences before triangulation.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Refine calibration from pose keypoints</td>
+<td>On</td>
+<td>Pools confident keypoints across sessions and runs a bundle adjustment, then an orthogonality refinement. Writes <code>calibration_refined.toml</code> next to the original, never overwriting it, and only when it lowers the reprojection error</td>
+</tr>
+<tr>
+<td>Assume about 90° orthogonal camera rig</td>
+<td>On</td>
+<td>Adds the known angle between neighbouring cameras (cam0-cam1, cam1-cam2, and so on) as a soft prior. Turn off if your cameras are not at a consistent angle</td>
+</tr>
+<tr>
+<td>Expected angle between cameras (°)</td>
+<td>90.0</td>
+<td>Used only with the previous setting</td>
+</tr>
+<tr>
+<td>Orthogonality prior strength (0 to 1)</td>
+<td>0.3</td>
+<td>Higher trusts the angle more, lower trusts the keypoint data more</td>
+</tr>
+<tr>
+<td>Angle tolerance guardrail (°)</td>
+<td>15.0</td>
+<td>If the first refinement already differs from the expected angle by more than this, the prior is skipped for that camera pair and a warning is logged</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-processing-and-visualization">Post-processing and Visualization<a class="anchor" href="#post-processing-and-visualization" aria-label="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delete camera videos after quad composite</td>
+<td>Off</td>
+<td>Frees disk space; cannot be undone</td>
+</tr>
+<tr>
+<td>Delete per-camera H5s after 3D H5 is created</td>
+<td>Off</td>
+<td>Frees disk space; cannot be undone</td>
+</tr>
+<tr>
+<td>Export 3D skeleton visualization video</td>
+<td>On</td>
+<td>A matplotlib animation. It runs on the CPU and is slow; switch it off for routine runs</td>
+</tr>
+<tr>
+<td>Draw DLC keypoint overlay on the quad video</td>
+<td>On</td>
+<td>Overlay dots (radius 3 px) and thin skeleton lines</td>
+</tr>
+<tr>
+<td>Generate body-point colour legend</td>
+<td>On</td>
+<td>A PNG legend</td>
+</tr>
+<tr>
+<td>Generate per-camera likelihood QC plot</td>
+<td>On</td>
+<td>Likelihood before triangulation</td>
+</tr>
+<tr>
+<td>Generate 3D-to-2D reprojection QC videos</td>
+<td>On</td>
+<td>Per camera and as a bordered quad</td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-sections-collapsed-by-default">Other sections (collapsed by default)<a class="anchor" href="#other-sections-collapsed-by-default" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><strong>Per-camera 2D pose cleaning</strong> (off): silhouette containment and head-cage bone-length gates before triangulation, still being validated on more rigs.</li>
+<li><strong>Per-camera crop:</strong> set a crop region per camera with a preview dialog.</li>
+<li><strong>Auto-detect starved cameras</strong> (off): lowers the detection threshold for a camera that yields too few detections. A value you set manually overrides it.</li>
+<li><strong>Per-camera adaptation bounding-box threshold override:</strong> a separate threshold for one camera (blank uses the shared value).</li>
+<li><strong>Session discovery:</strong> <em>Scan video source folders for sessions</em> lists the sessions CUBE would process.</li>
+</ul>
+<hr />
+<h2 id="output-files">Output Files<a class="anchor" href="#output-files" aria-label="Link to this section">#</a></h2>
+<p>Each completed session has a folder under <code>CUBE 1b - 3D DLC</code> in the run folder (see <a href="../guide/output-files/">Section 5</a>):</p>
+<pre><code>CUBE 1b - 3D DLC/&lt;session_id&gt;/
+  &lt;session_id&gt;_3d_filtered.h5      the triangulated 3D keypoints
+                                   (body points with x, y, z and likelihood)
+  &lt;session_id&gt;_quad.mp4            the 2x2 composite of the corrected camera videos
+  &lt;session_id&gt;_skeleton3d.mp4      the 3D skeleton animation (if switched on)
+  quality-control files            keypoint overlay, body-point legend, per-camera
+                                   likelihood plot, reprojection videos (if switched on)
+</code></pre>
+<p>Step 2 then writes the pre-clustering files for each session (keypoint H5 and CSV with z kept, a copy of the quad video and the body-point confidence report) under <code>CUBE 2 - Preclustering files</code>.</p>
+<hr />
+<h2 id="how-downstream-steps-differ-in-3d-mode">How Downstream Steps Differ in 3D Mode<a class="anchor" href="#how-downstream-steps-differ-in-3d-mode" aria-label="Link to this section">#</a></h2>
+<p><strong>Step 2.</strong> Unchanged. The converter reads the standard format, and the presence of the <code>z</code> column marks the file as 3D for Step 3.</p>
+<p><strong>Step 3.</strong> CUBE uses 3D feature extraction when it finds 3D data:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>2D mode</th>
+<th>3D mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pairwise distances</td>
+<td><code>√(dx²+dy²)</code></td>
+<td>True 3D distance <code>√(dx²+dy²+dz²)</code></td>
+</tr>
+<tr>
+<td>Velocities</td>
+<td>2D magnitude</td>
+<td>3D magnitude</td>
+</tr>
+<tr>
+<td>Angular features</td>
+<td>Yes, if spine landmarks exist</td>
+<td>Not computed (world coordinates are already scale-invariant)</td>
+</tr>
+<tr>
+<td>Body-size normalisation</td>
+<td>Optional</td>
+<td>Not needed</td>
+</tr>
+<tr>
+<td>Temporal scales</td>
+<td>100 ms and 200 ms (plus 50 ms at 60 fps or more)</td>
+<td>100 ms and 200 ms, with lagged drift features and no within-bin variance</td>
+</tr>
+</tbody>
+</table>
+<p>UMAP, HDBSCAN, the classifier and the HMM do not depend on the number of dimensions and work unchanged.</p>
+<p><strong>Step 4.</strong> Unchanged. The Video Explorer plays the quad video, so you see all cameras at once while naming clusters.</p>
+<p><strong>Step 5.</strong> Unchanged. The bout tables have the same format as in 2D.</p>
+<hr />
+<h2 id="camera-calibration">Camera Calibration<a class="anchor" href="#camera-calibration" aria-label="Link to this section">#</a></h2>
+<p>CUBE creates <code>calibration.toml</code> for you. The manual route below is only a backup, or for when you want more control (a different board, pooled detection, fixed intrinsics).</p>
+<p><strong>Recommended workflow (automatic)</strong></p>
+<ol>
+<li>Record a Charuco board in view of all cameras at once, with the <strong>same Step 0 pipeline</strong> as your real sessions. The session name only has to contain the word &quot;calibration&quot; (any capitals), for example <code>mouse1_calibration_2026-06-01</code>. Step 0 detects this and copies it to <code>_calibration/{session_id}/</code> in the output folder.</li>
+<li>Slowly rotate and move the board for 30 to 60 seconds, so that every part of the recording volume is covered and the board is seen at many angles in several cameras.</li>
+<li>In <strong>3D DLC Settings</strong>, confirm that auto-calibration is ticked (it is by default) and enter the board's squares (X and Y), square length and marker length, measured with calipers on the printed board. These cannot be read from the video.</li>
+<li>Run the 3D pipeline as normal. Phase 1 finds the calibration recording, calibrates it automatically and writes <code>calibration.toml</code> to <code>{calibration recording}/calibration_auto/calibration.toml</code>. Later runs reuse the cached result.</li>
+</ol>
+<p>The same calibration applies to all sessions recorded with those cameras in those positions. Record a new calibration only when the cameras have been moved or refocused. A new recording with &quot;calibration&quot; in its name is picked up automatically, and the most recent one wins.</p>
+<p><strong>Manual workflow (backup)</strong></p>
+<ol>
+<li>Run <code>calibrate_cameras.py</code> on a calibration recording folder (<code>--videos-dir</code>) with your board's <code>--squares-x</code>, <code>--squares-y</code>, <code>--square-length</code> and <code>--marker-length</code> (see its <code>--help</code> for the other options). It uses the same logic as the automatic calibration.</li>
+<li>Point CUBE to the result in <strong>3D DLC Settings → Calibration folder</strong>.</li>
+</ol>
+<p>Automatic calibration takes precedence whenever it finds a calibration recording.</p>
+<p><strong>Checking the quality.</strong> After a run, open the 3D skeleton video or the reprojection videos and check that the points look plausible. Jittery or drifting skeleton segments, or large gaps between dots and rings, mean a poor calibration.</p>
+<p><strong>If the reprojection error stays high</strong> after recalibrating (a few pixels or more is common with planar boards because of an ambiguity between focal length and depth), try <strong>Refine calibration from pose keypoints</strong>. It uses the keypoints already tracked across cameras, writes a separate <code>calibration_refined.toml</code>, never changes your original file, and takes effect only if it improves on it.</p>
+<p><strong>Homography calibration (rigs of up to 3 cameras without a calibration).</strong> The Homography Calibrator window opens the first time a camera pair is needed. Click four or more matching physical reference points in both views (floor corners and one wall point) and save; the result is cached for every later session with that rig. If a crop region is set for a camera in fallback mode, the clicked points and the fusion use different coordinate systems and a warning is logged; clear the crop region or click the points on the same cropped region.</p>
+<hr />
+<h2 id="troubleshooting-3d">Troubleshooting (3D)<a class="anchor" href="#troubleshooting-3d" aria-label="Link to this section">#</a></h2>
+<p><strong>&quot;No calibration available&quot; / &quot;calibration.toml not found&quot;.</strong> Both calibration routes came up empty. Automatic calibration found no folder with &quot;calibration&quot; in its name and at least 2 <code>camN</code> videos under your source folders: check that you recorded a calibration session through Step 0 with that word in its name and that the source folders include the Step 0 output. The manual backup needs a file named exactly <code>calibration.toml</code> in the <em>Calibration folder</em>. Fix one of the two. If automatic calibration keeps failing for another reason (for example a board-detection error), the log shows an <code>[auto-calib]</code> warning that names it. With three or fewer cameras and the homography fallback ticked, CUBE uses the fallback instead of stopping.</p>
+<p><strong>&quot;No complete Step 0 sessions found&quot;.</strong> Check that the source folders hold <code>*_corrected.mp4</code> files from <code>bonsai_video_corrector.py</code>, that every camera in <code>{session_id}_correction_report.json</code> has <code>&quot;status&quot;: &quot;done&quot;</code>, and that at least 2 cameras produced output. If you have run before and the folders have moved, run once with the correct folders in the main panel; the paths are saved again at the end of Phase 4.</p>
+<p><strong>&quot;No H5 for cam_X — will be skipped in triangulation&quot;.</strong> Tracking produced no output for that camera video. Check the log for inference errors. Common causes are a damaged video, a DLC installation problem, or a video too short for the adaptation.</p>
+<p><strong>Out of GPU memory even at batch size 1.</strong> Close other programs that use the GPU. Cameras are processed one after the other, and there is no way to reduce the parallelism further. As a last resort, install the CPU build of PyTorch (inference will be much slower).</p>
+<p><strong>Triangulation gives all-zero or NaN coordinates.</strong> The most common cause is a wrong <code>calibration.toml</code>. For an automatic calibration, check the log for its reprojection error (<code>[auto-calib] Average reprojection error: ...px</code>): a value over about 1 px means the calibration recording needs to be redone with more varied board coverage, or the board's square and marker lengths were entered wrongly. Check that the camera order in the calibration matches your camera labels (<code>cam0</code>, <code>cam1</code>, ...). Automatic calibration takes this from the <code>camN_...</code> file names, so it is mostly a problem for hand-made calibrations. If you switched RANSAC on, try switching it off.</p>
+<p><strong>The quad video has the wrong aspect ratio or black bars.</strong> All streams are scaled to the most common resolution across cameras, so if your cameras differ in resolution some streams are scaled. This is expected.</p>
+<p><strong>The skeleton video is very slow.</strong> It is drawn frame by frame on the CPU. A 30-minute recording at 30 fps has 54,000 frames and typically takes 10 to 30 minutes. Switch the option off for routine runs and use it for visual checks of specific sessions.</p>
+<p><strong>Sessions are processed again on every run.</strong> CUBE skips a session whose <code>{session_id}_3d_filtered.h5</code> already exists. If the file was deleted, or the output folder changed, the session is triangulated again. Existing per-camera <code>_filtered.h5</code> files are detected before inference starts, so tracking is not repeated for them.</p>
+<hr />
+<p><em>For the full Group Predictor documentation, see <span>GROUP_PREDICTOR_REFERENCE.md</span>.</em></p>
+
+      <nav class="pn-row" aria-label="Previous and next"><a class="pn pn--prev" href="../guide/troubleshooting/"><span>Previous</span>Troubleshooting</a><span></span></nav>
+    </article>
+  </div>
+</section>
+
+</main>
+<section class="creator" aria-labelledby="creator-h">
+  <div class="container creator__inner">
+    <div class="creator__text">
+      <p class="eyebrow">About the developer</p>
+      <h2 id="creator-h">Developed by Param Valiathan</h2>
+      <p>CUBE was developed by Param Valiathan in the laboratory of Patrik Ernfors at Karolinska Institutet (<a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener" target="_blank">research group website</a>). Questions, bug reports and suggestions are welcome: open an issue on GitHub or get in touch on LinkedIn.</p>
+    </div>
+    <div class="creator__links">
+      <a class="btn btn--linkedin" href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Connect on LinkedIn
+      </a>
+      <a class="btn btn--ghost" href="https://github.com/param-valiathan/CUBE" rel="noopener" target="_blank">View the code on GitHub</a>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer__stripe" aria-hidden="true"></div>
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="brand" href="../"><img src="../assets/img/logo-mark.png" width="34" height="34" alt=""><span class="brand__word">CUBE</span></a>
+      <p>Comprehensive Unsupervised Behavioural Explorer. From video to behaviour, end to end.</p>
+    </div>
+    <nav class="footer__col" aria-label="Learn">
+      <h3>Learn</h3>
+      <a href="../about/">What is CUBE</a>
+      <a href="../get-started/">Get started</a>
+      <a href="../guide/">Pipeline guide</a>
+      <a href="../analyser/">Analyser</a>
+    </nav>
+    <nav class="footer__col" aria-label="Explore">
+      <h3>Explore</h3>
+      <a href="../guided-labelling/">Guided labelling</a>
+      <a href="../paradigms/">Behavioural paradigms</a>
+      <a href="../3d/">3D multi-camera</a>
+      <a href="../gallery/">Gallery</a>
+      <a href="../video/">Overview video</a>
+    </nav>
+    <nav class="footer__col" aria-label="Project">
+      <h3>Project</h3>
+      <a href="https://github.com/param-valiathan/CUBE" rel="noopener">GitHub repository</a>
+      <a href="../cite/">Cite and credits</a>
+      <a href="https://ki.se/en/mbb/research-division-of-molecular-neurobiology" rel="noopener">Research group (KI)</a>
+      <a href="https://www.linkedin.com/in/paramvaliathan" rel="me noopener">LinkedIn</a>
+    </nav>
+  </div>
+  <div class="container footer__legal">
+    <p>&copy; 2026 Param Valiathan. CUBE is research software; if you use it, please cite it (see Cite and credits). A preprint is in preparation.</p>
+    <p>Built on DeepLabCut and the B-SOiD method. Open field and elevated plus maze examples use the public dataset of Sturman et al. (2020).</p>
+  </div>
+</footer>
+
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
