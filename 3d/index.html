@@ -177,8 +177,8 @@
 <ol>
 <li><strong>Crops</strong> the camera's frames if you set a crop region for it.</li>
 <li><strong>Picks a representative video:</strong> the one with the fewest duplicated frames, which shows the most genuine animal movement.</li>
-<li><strong>Adapts the SuperAnimal Quadruped model</strong> to your recording conditions using that video. The adapted weights are cached and reused on later runs for the same camera.</li>
-<li><strong>Tracks every corrected video of that camera.</strong> On a GPU out-of-memory error the batch size is halved and the video retried, down to a batch size of 1; if it still fails, that video is skipped and the error is logged.</li>
+<li><strong>Adapts the SuperAnimal Quadruped model</strong> to your recording conditions. By default (Smart Adapt v4) it pools up to four of that camera's videos, representative first, drops implausible pseudo-labels and trains on pose-balanced frames (see <a href="../guide/smart-adapt/">Section 4a</a>); with the setting off it uses the representative video alone. The adapted weights are cached and reused on later runs for the same camera.</li>
+<li><strong>Tracks every corrected video of that camera.</strong> On a GPU out-of-memory error the batch size is halved and the video retried, down to a batch size of 1; if it still fails, that video is skipped and the error is logged. Each video's keypoints are then filtered (temporal gate, head-group check, detector-box gate, fill cap; see <a href="../guide/smart-adapt/">Section 4a</a>).</li>
 <li><strong>Masks fill frames.</strong> Frames that Step 0 marked as duplicated fill frames get a likelihood of 0 for every body point, so they cannot contribute confident detections to triangulation.</li>
 <li><strong>Frees GPU memory</strong> before the next camera.</li>
 </ol>
@@ -523,6 +523,7 @@
 <h3 id="other-sections-collapsed-by-default">Other sections (collapsed by default)<a class="anchor" href="#other-sections-collapsed-by-default" aria-label="Link to this section">#</a></h3>
 <ul>
 <li><strong>Per-camera 2D pose cleaning</strong> (off): silhouette containment and head-cage bone-length gates before triangulation, still being validated on more rigs.</li>
+<li><strong>Pooled adaptation labels</strong> (on): adapt each camera on pooled, filtered pseudo-labels from that camera's own videos (<em>Videos pooled per camera</em>, default 4); off adapts on the representative video alone.</li>
 <li><strong>Per-camera crop:</strong> set a crop region per camera with a preview dialog.</li>
 <li><strong>Auto-detect starved cameras</strong> (off): lowers the detection threshold for a camera that yields too few detections. A value you set manually overrides it.</li>
 <li><strong>Per-camera adaptation bounding-box threshold override:</strong> a separate threshold for one camera (blank uses the shared value).</li>
