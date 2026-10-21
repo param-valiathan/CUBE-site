@@ -90,6 +90,7 @@
 <a href="../../guide/installation/">Installation and launching</a>
 <h3 class="grp">The pipeline</h3>
 <a href="../../guide/step-1-dlc/">Step 1: DLC inference</a>
+<a href="../../guide/smart-adapt/">Smart Adapt: adapting the tracking model</a>
 <a href="../../guide/step-2-preprocessing/">Step 2: pre-processing</a>
 <a href="../../guide/step-3-discover/">Step 3: features, UMAP and clustering</a>
 <a href="../../guide/step-4-annotate/">Step 4: cluster annotation</a>
@@ -194,7 +195,7 @@
 <h2 id="dlc-inference-fails-in-step-1">DLC inference fails in Step 1<a class="anchor" href="#dlc-inference-fails-in-step-1" aria-label="Link to this section">#</a></h2>
 <ol>
 <li>Check the CUDA drivers if you use a GPU, and confirm that DLC works on its own outside CUBE.</li>
-<li>Try with <strong>Smart Adapt</strong> off. It can fail when the adaptation video does not contain enough varied frames.</li>
+<li>Try with <strong>Pooled labels</strong> off, then with <strong>Smart Adapt</strong> off. Adaptation can fail when the videos do not contain enough varied frames. If the log says <em>Pooled adaptation unavailable</em>, CUBE has already fallen back to the standard single-video adaptation on its own.</li>
 <li>Check that OpenCV can read your video files: open one in a video player and try <code>cv2.VideoCapture(path).isOpened()</code> in Python.</li>
 </ol>
 <h2 id="the-analyser-shows-no-animals-or-empty-tables">The Analyser shows no animals or empty tables<a class="anchor" href="#the-analyser-shows-no-animals-or-empty-tables" aria-label="Link to this section">#</a></h2>

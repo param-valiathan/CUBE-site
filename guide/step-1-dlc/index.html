@@ -90,6 +90,7 @@
 <a href="../../guide/installation/">Installation and launching</a>
 <h3 class="grp">The pipeline</h3>
 <a class="is-on" href="../../guide/step-1-dlc/">Step 1: DLC inference</a>
+<a href="../../guide/smart-adapt/">Smart Adapt: adapting the tracking model</a>
 <a href="../../guide/step-2-preprocessing/">Step 2: pre-processing</a>
 <a href="../../guide/step-3-discover/">Step 3: features, UMAP and clustering</a>
 <a href="../../guide/step-4-annotate/">Step 4: cluster annotation</a>
@@ -135,9 +136,14 @@
 <td>Fine-tunes the model on your videos for better tracking</td>
 </tr>
 <tr>
-<td>Smart Adapt</td>
+<td>Smart Adapt (v4)</td>
 <td>On</td>
-<td>Adapts the model once on a representative video and reuses it for all similar videos</td>
+<td>Adapts the model once and reuses it for all videos, trained on filtered pseudo-labels pooled from same-camera videos. See <a href="../../guide/smart-adapt/">Section 4a</a></td>
+</tr>
+<tr>
+<td>Pooled labels</td>
+<td>On</td>
+<td>Untick to adapt on every confident label of one representative video, as in earlier versions</td>
 </tr>
 <tr>
 <td>Adapt epochs</td>
@@ -177,12 +183,12 @@
 </tbody>
 </table>
 <p><strong>Advanced DLC Parameters</strong> holds the model choice (SuperAnimal Zoo model, recommended, or your own DLC project), the pose and detector architecture, confidence thresholds (pose confidence 0.3, bounding-box threshold 0.6), batch sizes and the keypoint overlay.</p>
-<p><strong>What CUBE writes:</strong> one <code>*_filtered.h5</code> file per video. The filter only removes jitter from keypoints DLC is already confident about; it does not fill gaps. Frames below the pose confidence keep their original values. Gap filling happens in Step 2/3.</p>
+<p><strong>What CUBE writes:</strong> one <code>*_filtered.h5</code> file per video. The filter first flags confident-but-implausible points (a per-body-part temporal gate, a head-group check, a detector-box gate and an off-body gate), then smooths the remaining confident points with a median filter and bridges gaps of up to 5 frames with a straight line. A bridged point is never reported as confident at the 0.4 display cut-off. Longer gaps are left for Step 2/3. The gates are described in <a href="../../guide/smart-adapt/">Section 4a</a>.</p>
 <p><strong>File matching:</strong> CUBE matches keypoint files to videos by file name, name prefix or a <code>YYYYMMDD_HHMMSS</code> time stamp. A file that cannot be matched is still analysed, but without video-linked features such as example clips.</p>
 <p><strong>Uncalibrated rigs of up to three cameras:</strong> if no calibration exists and the rig has three or fewer cameras, Step 1b can fall back to a floor-plane homography fusion of the per-camera 2D keypoints (the <em>homography fallback</em> option in the 3D settings, on by default). The first time a camera pair is seen, a <strong>Homography Calibrator</strong> window opens: click four or more matching physical reference points in both camera views (for example the arena floor corners plus one wall point), then save. The result is cached and reused for every later session on that rig. This improves 2D coverage but does not claim 3D metric accuracy; a calibrated rig always triangulates in full 3D. See <a href="../../3d/">Section 12</a>.</p>
 <hr />
 
-      <nav class="pn-row" aria-label="Previous and next"><a class="pn pn--prev" href="../../guide/installation/"><span>Previous</span>Installation and launching</a><a class="pn pn--next" href="../../guide/step-2-preprocessing/"><span>Next</span>Step 2: pre-processing</a></nav>
+      <nav class="pn-row" aria-label="Previous and next"><a class="pn pn--prev" href="../../guide/installation/"><span>Previous</span>Installation and launching</a><a class="pn pn--next" href="../../guide/smart-adapt/"><span>Next</span>Smart Adapt: adapting the tracking model</a></nav>
     </article>
   </div>
 </section>

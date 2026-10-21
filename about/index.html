@@ -100,7 +100,7 @@
     <p>Use any camera. For synchronised multi-camera rigs, CUBE can align recordings from Bonsai and flag filled or dropped frames so downstream steps know which frames to trust.</p>
 
     <h3 id="s-track">2. Track</h3>
-    <p>DeepLabCut estimates body points in every frame, using a pretrained SuperAnimal quadruped model that is adapted to your videos. For calibrated four-camera rigs, CUBE triangulates the 2D points into a 3D skeleton. Confidence is checked, low-confidence frames are interpolated over short gaps, and a short moving average removes jitter.</p>
+    <p>DeepLabCut estimates body points in every frame, using a pretrained SuperAnimal quadruped model that is <a href="../guide/smart-adapt/">adapted to your videos</a>, without hand labels. For calibrated four-camera rigs, CUBE triangulates the 2D points into a 3D skeleton. Confidence is checked, points that jump away from the animal are flagged, short gaps are interpolated, and a short median filter removes jitter.</p>
 
     <h3 id="s-discover">3. Discover</h3>
     <p>From the tracked body points CUBE builds multi-scale features: pairwise distances, velocity, acceleration and, when available, body-axis angles, over 100 ms and 200 ms windows (plus a 50 ms window at 60 frames per second or more). UMAP embeds these windows, HDBSCAN groups them into clusters (with the minimum cluster size chosen by a sweep that scores each candidate with the DBCV validity index), and a classifier labels every window in every video. A hidden Markov model then smooths the labels over time.</p>

@@ -90,6 +90,7 @@
 <a href="../../guide/installation/">Installation and launching</a>
 <h3 class="grp">The pipeline</h3>
 <a href="../../guide/step-1-dlc/">Step 1: DLC inference</a>
+<a href="../../guide/smart-adapt/">Smart Adapt: adapting the tracking model</a>
 <a href="../../guide/step-2-preprocessing/">Step 2: pre-processing</a>
 <a href="../../guide/step-3-discover/">Step 3: features, UMAP and clustering</a>
 <a href="../../guide/step-4-annotate/">Step 4: cluster annotation</a>
@@ -761,6 +762,7 @@
 <li><code>bout_gap_bridging_enabled</code> (on) and <code>bout_gap_bridging_max_gap_s</code> (0.3). Some behaviours are bursty: licking is a series of brief on-off events, each shorter than the 0.3 s bout minimum. Before the duration filter runs, CUBE merges runs of the same label that are separated by a short interruption of any other label (up to the gap tolerance) and fills the gap with the surrounding label. Bridging happens after turned-away exclusion, so a very short turned-away blip inside a bout is folded back into it. In the frame label files <code>label</code> shows the bridged result and <code>raw_label</code> the unmodified prediction. Turning it off drops every sub-minimum blip and changes bout counts for bursty behaviours.</li>
 <li><code>min_epoch_dur_s</code> (0.3) and <code>max_epoch_dur_s</code> (10): the bout duration filter, also set in the main window.</li>
 <li><code>max_interp_gap_sec</code> (0.5): the longest gap that is filled from neighbouring frames.</li>
+<li><code>dlc_smart_adapt_pool_max</code> (6): the most same-camera videos Smart Adapt pools for its pseudo-labels. <code>dlc_temporal_gate</code>, <code>dlc_bbox_gate</code> and <code>dlc_fill_conf_cap</code> (all on) switch the per-video tracking corrections described in <a href="../../guide/smart-adapt/">Section 4a</a> on or off; these are in the advanced DLC configuration of the session file.</li>
 </ul>
 </div></details>
 <details class="fold"><summary><h2 id="kinematic-directedness-opt-in">Kinematic Directedness (opt-in)<a class="anchor" href="#kinematic-directedness-opt-in" aria-label="Link to this section">#</a></h2></summary><div class="fold__body">
