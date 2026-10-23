@@ -178,7 +178,7 @@
 <li><strong>Crops</strong> the camera's frames if you set a crop region for it.</li>
 <li><strong>Picks a representative video:</strong> the one with the fewest duplicated frames, which shows the most genuine animal movement.</li>
 <li><strong>Adapts the SuperAnimal Quadruped model</strong> to your recording conditions. By default (Smart Adapt v4) it pools up to four of that camera's videos, representative first, drops implausible pseudo-labels and trains on pose-balanced frames (see <a href="../guide/smart-adapt/">Section 4a</a>); with the setting off it uses the representative video alone. The adapted weights are cached and reused on later runs for the same camera.</li>
-<li><strong>Tracks every corrected video of that camera.</strong> On a GPU out-of-memory error the batch size is halved and the video retried, down to a batch size of 1; if it still fails, that video is skipped and the error is logged. Each video's keypoints are then filtered (temporal gate, head-group check, detector-box gate, fill cap; see <a href="../guide/smart-adapt/">Section 4a</a>).</li>
+<li><strong>Tracks every corrected video of that camera.</strong> On a GPU out-of-memory error the batch size is halved and the video retried, down to a batch size of 1; if it still fails, that video is skipped and the error is logged. Each video's keypoints are then filtered (temporal gate, head-group check, detector-box gate, modelled fill confidence; see <a href="../guide/smart-adapt/">Section 4a</a>).</li>
 <li><strong>Masks fill frames.</strong> Frames that Step 0 marked as duplicated fill frames get a likelihood of 0 for every body point, so they cannot contribute confident detections to triangulation.</li>
 <li><strong>Frees GPU memory</strong> before the next camera.</li>
 </ol>
